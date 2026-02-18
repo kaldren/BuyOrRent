@@ -1,6 +1,5 @@
 <script>
     (function () {
-        const countrySelect = document.getElementById('countrySelect');
         const regionSelect = document.getElementById('regionSelect');
         const municipalitySelect = document.getElementById('municipalitySelect');
         const citySelect = document.getElementById('citySelect');
@@ -24,52 +23,37 @@
             select.disabled = false;
         }
 
-        if (countrySelect) {
-            countrySelect.addEventListener('change', function () {
-                resetSelect(regionSelect, '-- Select --');
-                resetSelect(municipalitySelect, '-- Select --');
-                resetSelect(citySelect, '-- Select --');
-                if (this.value) {
-                    loadOptions(`/api/locations/regions/${this.value}`, regionSelect, '-- Select --');
-                }
-            });
-        }
-
         if (regionSelect) {
             regionSelect.addEventListener('change', function () {
-                resetSelect(municipalitySelect, '-- Select --');
-                resetSelect(citySelect, '-- Select --');
+                resetSelect(municipalitySelect, '-- Изберете община --');
+                resetSelect(citySelect, '-- Изберете населено място --');
                 if (this.value) {
-                    loadOptions(`/api/locations/municipalities/${this.value}`, municipalitySelect, '-- Select --');
+                    loadOptions(`/api/locations/municipalities/${this.value}`, municipalitySelect, '-- Изберете община --');
                 }
             });
         }
 
         if (municipalitySelect) {
             municipalitySelect.addEventListener('change', function () {
-                resetSelect(citySelect, '-- Select --');
+                resetSelect(citySelect, '-- Изберете населено място --');
                 if (this.value) {
-                    loadOptions(`/api/locations/cities/${this.value}`, citySelect, '-- Select --');
+                    loadOptions(`/api/locations/cities/${this.value}`, citySelect, '-- Изберете населено място --');
                 }
             });
         }
 
         // Auto-trigger cascading load if values are pre-selected (edit scenario)
-        if (countrySelect && countrySelect.value) {
-            loadOptions(`/api/locations/regions/${countrySelect.value}`, regionSelect, '-- Select --').then(() => {
-                const regionVal = regionSelect.dataset.selectedValue;
-                if (regionVal) {
-                    regionSelect.value = regionVal;
-                    loadOptions(`/api/locations/municipalities/${regionVal}`, municipalitySelect, '-- Select --').then(() => {
-                        const munVal = municipalitySelect.dataset.selectedValue;
-                        if (munVal) {
-                            municipalitySelect.value = munVal;
-                            loadOptions(`/api/locations/cities/${munVal}`, citySelect, '-- Select --').then(() => {
-                                const cityVal = citySelect.dataset.selectedValue;
-                                if (cityVal) {
-                                    citySelect.value = cityVal;
-                                }
-                            });
+        const selectedRegion = regionSelect && (regionSelect.dataset.selectedValue || regionSelect.value);
+        if (selectedRegion) {
+            if (regionSelect.dataset.selectedValue) regionSelect.value = selectedRegion;
+            loadOptions(`/api/locations/municipalities/${selectedRegion}`, municipalitySelect, '-- Изберете община --').then(() => {
+                const selectedMun = municipalitySelect.dataset.selectedValue;
+                if (selectedMun) {
+                    municipalitySelect.value = selectedMun;
+                    loadOptions(`/api/locations/cities/${selectedMun}`, citySelect, '-- Изберете населено място --').then(() => {
+                        const selectedCity = citySelect.dataset.selectedValue;
+                        if (selectedCity) {
+                            citySelect.value = selectedCity;
                         }
                     });
                 }

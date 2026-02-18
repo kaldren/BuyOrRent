@@ -11,15 +11,9 @@ public static class LocationsApi
     {
         var group = app.MapGroup("/api/locations").WithTags("Locations");
 
-        group.MapGet("/countries", async (ILocationRepository repo, CancellationToken ct) =>
+        group.MapGet("/regions", async (ILocationRepository repo, CancellationToken ct) =>
         {
-            var countries = await repo.GetCountriesAsync(ct);
-            return Results.Ok(countries.Select(c => new { c.Id, c.Name, c.Code }));
-        });
-
-        group.MapGet("/regions/{countryId:guid}", async (Guid countryId, ILocationRepository repo, CancellationToken ct) =>
-        {
-            var regions = await repo.GetRegionsByCountryAsync(countryId, ct);
+            var regions = await repo.GetAllRegionsAsync(ct);
             return Results.Ok(regions.Select(r => new { r.Id, r.Name }));
         });
 

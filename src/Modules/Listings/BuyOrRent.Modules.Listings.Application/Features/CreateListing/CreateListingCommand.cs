@@ -9,7 +9,7 @@ public class CreateListingCommand : ICommand<Guid>
 {
     public required string Title { get; init; }
     public required string Description { get; init; }
-    public decimal Price { get; init; }
+    public decimal? Price { get; init; }
     public required string Address { get; init; }
     public Guid CityId { get; init; }
     public required string ZipCode { get; init; }
@@ -40,6 +40,8 @@ public class CreateListingCommand : ICommand<Guid>
                 ImageUrls = command.ImageUrls,
                 CreatedAt = DateTime.UtcNow
             };
+
+            listing.Validate();
 
             await repository.AddAsync(listing, cancellationToken);
 

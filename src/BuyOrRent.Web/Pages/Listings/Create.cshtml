@@ -25,7 +25,7 @@
 
             <div class="mb-3">
                 <label asp-for="Input.Price" class="form-label"></label>
-                <input asp-for="Input.Price" class="form-control" type="number" step="0.01" />
+                <input asp-for="Input.Price" class="form-control" type="number" step="0.01" min="0" placeholder="Оставете празно за &quot;По договаряне&quot;" />
                 <span asp-validation-for="Input.Price" class="text-danger"></span>
             </div>
 
@@ -41,28 +41,22 @@
             </div>
 
             <div class="row">
-                <div class="col-md-3 mb-3">
-                    <label asp-for="Input.CountryId" class="form-label"></label>
-                    <select asp-for="Input.CountryId" asp-items="Model.Countries" class="form-select" id="countrySelect">
-                        <option value="">-- Select --</option>
-                    </select>
-                </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-4 mb-3">
                     <label asp-for="Input.RegionId" class="form-label"></label>
-                    <select asp-for="Input.RegionId" class="form-select" id="regionSelect" disabled>
-                        <option value="">-- Select --</option>
+                    <select asp-for="Input.RegionId" asp-items="Model.Regions" class="form-select" id="regionSelect">
+                        <option value="">-- Изберете област --</option>
                     </select>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-4 mb-3">
                     <label asp-for="Input.MunicipalityId" class="form-label"></label>
                     <select asp-for="Input.MunicipalityId" class="form-select" id="municipalitySelect" disabled>
-                        <option value="">-- Select --</option>
+                        <option value="">-- Изберете община --</option>
                     </select>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-4 mb-3">
                     <label asp-for="Input.CityId" class="form-label"></label>
                     <select asp-for="Input.CityId" class="form-select" id="citySelect" disabled>
-                        <option value="">-- Select --</option>
+                        <option value="">-- Изберете населено място --</option>
                     </select>
                     <span asp-validation-for="Input.CityId" class="text-danger"></span>
                 </div>

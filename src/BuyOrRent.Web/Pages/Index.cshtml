@@ -30,7 +30,7 @@
                     }
                     <div class="card-body">
                         <h5 class="card-title">@listing.Title</h5>
-                        <p class="card-text text-primary fw-bold">@listing.Price.ToString("C")</p>
+                        <p class="card-text text-primary fw-bold">@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : "По договаряне")</p>
                         <p class="card-text text-muted">@listing.CityName, @listing.MunicipalityName</p>
                         <p class="card-text">
                             <small>@listing.NumberOfBedrooms bd &middot; @listing.NumberOfBathrooms ba &middot; @listing.SquareFootage sqft</small>

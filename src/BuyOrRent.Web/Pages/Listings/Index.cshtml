@@ -34,7 +34,7 @@ else
                 <tr>
                     <td><a asp-page="Details" asp-route-id="@listing.Id">@listing.Title</a></td>
                     <td>@listing.CityName, @listing.MunicipalityName</td>
-                    <td>@listing.Price.ToString("C")</td>
+                    <td>@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : "По договаряне")</td>
                     <td>@listing.NumberOfBedrooms</td>
                     <td>@listing.NumberOfBathrooms</td>
                     <td>

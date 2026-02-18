@@ -12,6 +12,11 @@ public class LocationRepository(ListingsDbContext dbContext) : ILocationReposito
         return await dbContext.Countries.OrderBy(c => c.Name).ToListAsync(cancellationToken);
     }
 
+    public async Task<IReadOnlyList<Region>> GetAllRegionsAsync(CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Regions.OrderBy(r => r.Name).ToListAsync(cancellationToken);
+    }
+
     public async Task<IReadOnlyList<Region>> GetRegionsByCountryAsync(Guid countryId, CancellationToken cancellationToken = default)
     {
         return await dbContext.Regions

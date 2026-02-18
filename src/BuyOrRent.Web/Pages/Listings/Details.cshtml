@@ -32,7 +32,7 @@
         }
 
         <h1>@Model.Listing.Title</h1>
-        <p class="text-primary fs-3 fw-bold">@Model.Listing.Price.ToString("C")</p>
+        <p class="text-primary fs-3 fw-bold">@(Model.Listing.Price.HasValue ? Model.Listing.Price.Value.ToString("C") : "По договаряне")</p>
 
         <p class="text-muted">
             @Model.Listing.Address<br />

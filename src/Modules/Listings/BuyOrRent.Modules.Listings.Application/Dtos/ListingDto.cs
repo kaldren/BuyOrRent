@@ -6,7 +6,7 @@ public record ListingDto(
     Guid Id,
     string Title,
     string Description,
-    decimal Price,
+    decimal? Price,
     string Address,
     Guid CityId,
     string CityName,

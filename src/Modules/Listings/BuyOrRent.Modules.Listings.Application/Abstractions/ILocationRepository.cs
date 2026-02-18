@@ -5,6 +5,7 @@ namespace BuyOrRent.Modules.Listings.Application.Abstractions;
 public interface ILocationRepository
 {
     Task<IReadOnlyList<Country>> GetCountriesAsync(CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<Region>> GetAllRegionsAsync(CancellationToken cancellationToken = default);
     Task<IReadOnlyList<Region>> GetRegionsByCountryAsync(Guid countryId, CancellationToken cancellationToken = default);
     Task<IReadOnlyList<Municipality>> GetMunicipalitiesByRegionAsync(Guid regionId, CancellationToken cancellationToken = default);
     Task<IReadOnlyList<City>> GetCitiesByMunicipalityAsync(Guid municipalityId, CancellationToken cancellationToken = default);

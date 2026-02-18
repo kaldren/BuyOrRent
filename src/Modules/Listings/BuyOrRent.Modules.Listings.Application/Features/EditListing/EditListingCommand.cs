@@ -8,7 +8,7 @@ public class EditListingCommand : ICommand
     public Guid Id { get; init; }
     public required string Title { get; init; }
     public required string Description { get; init; }
-    public decimal Price { get; init; }
+    public decimal? Price { get; init; }
     public required string Address { get; init; }
     public Guid CityId { get; init; }
     public required string ZipCode { get; init; }
@@ -35,6 +35,8 @@ public class EditListingCommand : ICommand
             listing.SquareFootage = command.SquareFootage;
             listing.ImageUrls = command.ImageUrls;
             listing.UpdatedAt = DateTime.UtcNow;
+
+            listing.Validate();
 
             await repository.UpdateAsync(listing, cancellationToken);
         }

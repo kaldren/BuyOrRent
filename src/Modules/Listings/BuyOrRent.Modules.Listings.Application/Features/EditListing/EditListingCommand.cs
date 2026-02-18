@@ -12,7 +12,6 @@ public class EditListingCommand : ICommand
     public decimal? Price { get; init; }
     public required string Address { get; init; }
     public Guid CityId { get; init; }
-    public required string ZipCode { get; init; }
     public int NumberOfBedrooms { get; init; }
     public int NumberOfBathrooms { get; init; }
     public double SquareFootage { get; init; }
@@ -34,7 +33,6 @@ public class EditListingCommand : ICommand
             listing.Price = command.Price;
             listing.Address = command.Address;
             listing.CityId = command.CityId;
-            listing.ZipCode = command.ZipCode;
             listing.NumberOfBedrooms = command.NumberOfBedrooms;
             listing.NumberOfBathrooms = command.NumberOfBathrooms;
             listing.SquareFootage = command.SquareFootage;

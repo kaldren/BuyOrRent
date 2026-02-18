@@ -54,7 +54,6 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
             Price = listing.Price,
             Address = listing.Address,
             CityId = listing.CityId,
-            ZipCode = listing.ZipCode,
             NumberOfBedrooms = listing.NumberOfBedrooms,
             NumberOfBathrooms = listing.NumberOfBathrooms,
             SquareFootage = listing.SquareFootage
@@ -108,7 +107,6 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
             Price = Input.Price,
             Address = Input.Address,
             CityId = Input.CityId,
-            ZipCode = Input.ZipCode,
             NumberOfBedrooms = Input.NumberOfBedrooms,
             NumberOfBathrooms = Input.NumberOfBathrooms,
             SquareFootage = Input.SquareFootage,
@@ -171,11 +169,6 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
         [Required(ErrorMessage = "Населеното място е задължително.")]
         [Display(Name = "Населено място")]
         public Guid CityId { get; set; }
-
-        [Required(ErrorMessage = "Пощенският код е задължителен.")]
-        [StringLength(20, ErrorMessage = "Пощенският код не може да бъде по-дълъг от 20 символа.")]
-        [Display(Name = "Пощенски код")]
-        public string ZipCode { get; set; } = string.Empty;
 
         [Range(0, 100, ErrorMessage = "Броят спални трябва да бъде между 0 и 100.")]
         [Display(Name = "Спални")]

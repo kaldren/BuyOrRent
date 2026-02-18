@@ -11,7 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy =>
+        policy.RequireRole("Admin"));
+});
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 

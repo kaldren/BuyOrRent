@@ -17,7 +17,7 @@
             <dd class="col-sm-9">@Model.Listing.Title</dd>
 
             <dt class="col-sm-3">Address</dt>
-            <dd class="col-sm-9">@Model.Listing.Address, @Model.Listing.CityName, @Model.Listing.MunicipalityName, @Model.Listing.RegionName @Model.Listing.ZipCode</dd>
+            <dd class="col-sm-9">@Model.Listing.Address, @Model.Listing.CityName, @Model.Listing.MunicipalityName, @Model.Listing.RegionName</dd>
 
             <dt class="col-sm-3">Price</dt>
             <dd class="col-sm-9">@(Model.Listing.Price.HasValue ? Model.Listing.Price.Value.ToString("C") : "По договаряне")</dd>

@@ -1,5 +1,7 @@
 using BuyOrRent.Modules.Listings.Application.Dtos;
 using BuyOrRent.Modules.Listings.Application.Features.GetListing;
+using BuyOrRent.Modules.Listings.Domain.Enums;
+using BuyOrRent.Web.Extensions;
 using LiteBus.Queries.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,6 +17,14 @@ public class DetailsModel(IQueryMediator queryMediator) : PageModel
         var listing = await queryMediator.QueryAsync(new GetListingQuery { Id = id }, cancellationToken);
         if (listing is null)
             return NotFound();
+
+        // Non-active listings are only visible to the owner or admins
+        if (listing.Status != ListingStatus.Active)
+        {
+            var userId = User.GetUserId();
+            if (listing.SellerId != userId && !User.IsAdmin())
+                return NotFound();
+        }
 
         Listing = listing;
         return Page();

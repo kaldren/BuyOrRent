@@ -30,13 +30,12 @@ public class ListingConfiguration : IEntityTypeConfiguration<Listing>
             .HasForeignKey(l => l.CityId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.Property(l => l.ZipCode)
-            .IsRequired()
-            .HasMaxLength(20);
-
         builder.Property(l => l.Status)
             .HasConversion<string>()
             .HasMaxLength(50);
+
+        builder.Property(l => l.RejectionReason)
+            .HasMaxLength(2000);
 
         builder.PrimitiveCollection(l => l.ImageUrls)
             .HasColumnType("nvarchar(max)");

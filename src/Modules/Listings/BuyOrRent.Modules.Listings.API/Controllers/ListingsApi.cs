@@ -1,9 +1,12 @@
+using BuyOrRent.Modules.Listings.Application.Features.ApproveListing;
 using BuyOrRent.Modules.Listings.Application.Features.ArchiveListing;
 using BuyOrRent.Modules.Listings.Application.Features.CreateListing;
 using BuyOrRent.Modules.Listings.Application.Features.DeleteListing;
 using BuyOrRent.Modules.Listings.Application.Features.EditListing;
 using BuyOrRent.Modules.Listings.Application.Features.GetListing;
 using BuyOrRent.Modules.Listings.Application.Features.GetListings;
+using BuyOrRent.Modules.Listings.Application.Features.GetPendingListings;
+using BuyOrRent.Modules.Listings.Application.Features.RejectListing;
 using BuyOrRent.Modules.Listings.Application.Features.UnarchiveListing;
 using BuyOrRent.Modules.Listings.Domain.Exceptions;
 using LiteBus.Commands.Abstractions;
@@ -132,6 +135,55 @@ public static class ListingsApi
             }
         });
 
+        // Admin endpoints
+        var adminGroup = app.MapGroup("/api/admin/listings").WithTags("Admin").RequireAuthorization("Admin");
+
+        adminGroup.MapGet("/pending", async (IQueryMediator queryMediator, CancellationToken cancellationToken) =>
+        {
+            var listings = await queryMediator.QueryAsync(new GetPendingListingsQuery(), cancellationToken);
+            return Results.Ok(listings);
+        });
+
+        adminGroup.MapPost("/{id:guid}/approve", async (Guid id, ICommandMediator commandMediator, CancellationToken cancellationToken) =>
+        {
+            try
+            {
+                await commandMediator.SendAsync(new ApproveListingCommand { Id = id }, cancellationToken);
+                return Results.NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return Results.NotFound();
+            }
+            catch (ListingDomainException ex)
+            {
+                return Results.BadRequest(ex.Message);
+            }
+        });
+
+        adminGroup.MapPost("/{id:guid}/reject", async (Guid id, RejectListingRequest request, ICommandMediator commandMediator, CancellationToken cancellationToken) =>
+        {
+            try
+            {
+                await commandMediator.SendAsync(new RejectListingCommand
+                {
+                    Id = id,
+                    Reason = request.Reason
+                }, cancellationToken);
+                return Results.NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return Results.NotFound();
+            }
+            catch (ListingDomainException ex)
+            {
+                return Results.BadRequest(ex.Message);
+            }
+        });
+
         return app;
     }
+
+    private record RejectListingRequest(string Reason);
 }

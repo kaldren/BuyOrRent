@@ -54,7 +54,6 @@ public class CreateModel(ICommandMediator commandMediator, IImageStorageService 
             Price = Input.Price,
             Address = Input.Address,
             CityId = Input.CityId,
-            ZipCode = Input.ZipCode,
             NumberOfBedrooms = Input.NumberOfBedrooms,
             NumberOfBathrooms = Input.NumberOfBathrooms,
             SquareFootage = Input.SquareFootage,
@@ -73,7 +72,7 @@ public class CreateModel(ICommandMediator commandMediator, IImageStorageService 
             return Page();
         }
 
-        return RedirectToPage("Index");
+        return RedirectToPage("MyListings");
     }
 
     private async Task LoadRegionsAsync(CancellationToken cancellationToken)
@@ -112,11 +111,6 @@ public class CreateModel(ICommandMediator commandMediator, IImageStorageService 
         [Required(ErrorMessage = "Населеното място е задължително.")]
         [Display(Name = "Населено място")]
         public Guid CityId { get; set; }
-
-        [Required(ErrorMessage = "Пощенският код е задължителен.")]
-        [StringLength(20, ErrorMessage = "Пощенският код не може да бъде по-дълъг от 20 символа.")]
-        [Display(Name = "Пощенски код")]
-        public string ZipCode { get; set; } = string.Empty;
 
         [Range(0, 100, ErrorMessage = "Броят спални трябва да бъде между 0 и 100.")]
         [Display(Name = "Спални")]

@@ -1,0 +1,79 @@
+@page
+@using BuyOrRent.Modules.Listings.Domain.Enums
+@model BuyOrRent.Web.Pages.Listings.MyListingsModel
+@{
+    ViewData["Title"] = "Моите обяви";
+}
+
+<h1>Моите обяви</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Създай нова обява</a>
+</p>
+
+@if (!Model.Listings.Any())
+{
+    <div class="alert alert-info">Все още нямате обяви.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Заглавие</th>
+                <th>Местоположение</th>
+                <th>Цена</th>
+                <th>Статус</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var listing in Model.Listings)
+            {
+                <tr>
+                    <td><a asp-page="Details" asp-route-id="@listing.Id">@listing.Title</a></td>
+                    <td>@listing.CityName, @listing.MunicipalityName</td>
+                    <td>@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : "По договаряне")</td>
+                    <td>
+                        @switch (listing.Status)
+                        {
+                            case ListingStatus.PendingReview:
+                                <span class="badge bg-warning text-dark">Чака преглед</span>
+                                break;
+                            case ListingStatus.Active:
+                                <span class="badge bg-success">Активна</span>
+                                break;
+                            case ListingStatus.Rejected:
+                                <span class="badge bg-danger">Отхвърлена</span>
+                                break;
+                            case ListingStatus.Archived:
+                                <span class="badge bg-secondary">Архивирана</span>
+                                break;
+                        }
+                    </td>
+                    <td>
+                        @if (listing.Status == ListingStatus.Active || listing.Status == ListingStatus.Rejected)
+                        {
+                            <a asp-page="Edit" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-primary">Редактирай</a>
+                        }
+                        @if (listing.Status == ListingStatus.Active)
+                        {
+                            <a asp-page="Archive" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-warning">Архивирай</a>
+                        }
+                        <a asp-page="Delete" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-danger">Изтрий</a>
+                    </td>
+                </tr>
+                @if (listing.Status == ListingStatus.Rejected && !string.IsNullOrWhiteSpace(listing.RejectionReason))
+                {
+                    <tr>
+                        <td colspan="5">
+                            <div class="alert alert-danger mb-0 py-2">
+                                <strong>Причина за отхвърляне:</strong> @listing.RejectionReason
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

@@ -1,4 +1,5 @@
 @page
+@using BuyOrRent.Modules.Listings.Domain.Enums
 @model BuyOrRent.Web.Pages.Listings.IndexModel
 @{
     ViewData["Title"] = "Listings";
@@ -6,9 +7,12 @@
 
 <h1>Listings</h1>
 
-<p>
-    <a asp-page="Create" class="btn btn-primary">Create New Listing</a>
-</p>
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <p>
+        <a asp-page="Create" class="btn btn-primary">Create New Listing</a>
+    </p>
+}
 
 @if (!Model.Listings.Any())
 {
@@ -37,24 +41,12 @@ else
                     <td>@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : "По договаряне")</td>
                     <td>@listing.NumberOfBedrooms</td>
                     <td>@listing.NumberOfBathrooms</td>
-                    <td>
-                        @if (listing.Status == BuyOrRent.Modules.Listings.Domain.Enums.ListingStatus.Active)
-                        {
-                            <span class="badge bg-success">Active</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">Archived</span>
-                        }
-                    </td>
+                    <td><span class="badge bg-success">Активна</span></td>
                     <td>
                         @if (listing.SellerId == Model.CurrentUserId)
                         {
                             <a asp-page="Edit" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-primary">Edit</a>
-                            @if (listing.Status == BuyOrRent.Modules.Listings.Domain.Enums.ListingStatus.Active)
-                            {
-                                <a asp-page="Archive" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-warning">Archive</a>
-                            }
+                            <a asp-page="Archive" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-warning">Archive</a>
                             <a asp-page="Delete" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-danger">Delete</a>
                         }
                     </td>

@@ -12,11 +12,11 @@ public class Listing
     public required string Address { get; set; }
     public Guid CityId { get; set; }
     public City City { get; set; } = null!;
-    public required string ZipCode { get; set; }
     public int NumberOfBedrooms { get; set; }
     public int NumberOfBathrooms { get; set; }
     public double SquareFootage { get; set; }
     public ListingStatus Status { get; set; }
+    public string? RejectionReason { get; set; }
     public Guid SellerId { get; set; }
     public List<string> ImageUrls { get; set; } = [];
     public DateTime CreatedAt { get; set; }
@@ -47,12 +47,6 @@ public class Listing
 
         if (CityId == Guid.Empty)
             throw new ListingDomainException("Населеното място е задължително.");
-
-        if (string.IsNullOrWhiteSpace(ZipCode))
-            throw new ListingDomainException("Пощенският код е задължителен.");
-
-        if (ZipCode.Length > 20)
-            throw new ListingDomainException("Пощенският код не може да бъде по-дълъг от 20 символа.");
 
         if (NumberOfBedrooms < 0)
             throw new ListingDomainException("Броят спални не може да бъде отрицателен.");

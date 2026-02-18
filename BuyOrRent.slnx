@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="CLAUDE.md" />
+  </Folder>
+  <Folder Name="/Solution Items/docs/">
+    <File Path="docs/ARCHITECTURE.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/BuyOrRent.API/BuyOrRent.API.csproj" Id="32c393af-dd56-4688-acce-5702aa689424" />
+    <Project Path="src/BuyOrRent.Web/BuyOrRent.Web.csproj" Id="a1762f6b-9194-4c7e-b0a4-98528e7e5c48" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Listings/">
+    <Project Path="src/Modules/BuyOrRent.Modules.Listings.Infrastructure/BuyOrRent.Modules.Listings.Infrastructure.csproj" Id="3f47bbd9-c0b3-4072-b531-59df7cefd844" />
+    <Project Path="src/Modules/Listings/BuyOrRent.Modules.Listings.API/BuyOrRent.Modules.Listings.API.csproj" Id="f916f0b7-1f20-41c3-ae7c-0585daee682b" />
+    <Project Path="src/Modules/Listings/BuyOrRent.Modules.Listings.Application/BuyOrRent.Modules.Listings.Application.csproj" Id="fe53dd94-49cf-409e-b8cc-5db60659d7c4" />
+    <Project Path="src/Modules/Listings/BuyOrRent.Modules.Listings.Domain/BuyOrRent.Modules.Listings.Domain.csproj" Id="b0197a87-6ea9-486a-b1ab-8a482ff9547f" />
+  </Folder>
+</Solution>

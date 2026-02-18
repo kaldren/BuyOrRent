@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using BuyOrRent.Modules.Listings.Application.Abstractions;
 using BuyOrRent.Modules.Listings.Application.Features.CreateListing;
+using BuyOrRent.Modules.Listings.Domain.Enums;
 using BuyOrRent.Modules.Listings.Domain.Exceptions;
 using BuyOrRent.Web.Extensions;
 using LiteBus.Commands.Abstractions;
@@ -22,6 +23,21 @@ public class CreateModel(ICommandMediator commandMediator, IImageStorageService 
     public List<IFormFile> Images { get; set; } = [];
 
     public List<SelectListItem> Regions { get; set; } = [];
+
+    public static readonly List<SelectListItem> PropertyTypeOptions =
+    [
+        new("Студио", nameof(PropertyType.Studio)),
+        new("Едностаен", nameof(PropertyType.OneBedroom)),
+        new("Двустаен", nameof(PropertyType.TwoBedroom)),
+        new("Тристаен", nameof(PropertyType.ThreeBedroom)),
+        new("Четиристаен", nameof(PropertyType.FourBedroom)),
+        new("Многостаен", nameof(PropertyType.MultiBedroom)),
+        new("Мезонет", nameof(PropertyType.Maisonette)),
+        new("Къща", nameof(PropertyType.House)),
+        new("Етаж от къща", nameof(PropertyType.HouseFloor)),
+        new("Гараж", nameof(PropertyType.Garage)),
+        new("Парцел", nameof(PropertyType.Land)),
+    ];
 
     public async Task OnGetAsync(CancellationToken cancellationToken)
     {
@@ -54,6 +70,7 @@ public class CreateModel(ICommandMediator commandMediator, IImageStorageService 
             Price = Input.Price,
             Address = Input.Address,
             CityId = Input.CityId,
+            PropertyType = Input.PropertyType,
             NumberOfBedrooms = Input.NumberOfBedrooms,
             NumberOfBathrooms = Input.NumberOfBathrooms,
             SquareFootage = Input.SquareFootage,
@@ -111,6 +128,10 @@ public class CreateModel(ICommandMediator commandMediator, IImageStorageService 
         [Required(ErrorMessage = "Населеното място е задължително.")]
         [Display(Name = "Населено място")]
         public Guid CityId { get; set; }
+
+        [Required(ErrorMessage = "Типът имот е задължителен.")]
+        [Display(Name = "Тип имот")]
+        public PropertyType PropertyType { get; set; }
 
         [Range(0, 100, ErrorMessage = "Броят спални трябва да бъде между 0 и 100.")]
         [Display(Name = "Спални")]

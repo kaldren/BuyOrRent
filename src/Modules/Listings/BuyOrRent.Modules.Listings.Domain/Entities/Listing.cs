@@ -12,6 +12,7 @@ public class Listing
     public required string Address { get; set; }
     public Guid CityId { get; set; }
     public City City { get; set; } = null!;
+    public PropertyType PropertyType { get; set; }
     public int NumberOfBedrooms { get; set; }
     public int NumberOfBathrooms { get; set; }
     public double SquareFootage { get; set; }

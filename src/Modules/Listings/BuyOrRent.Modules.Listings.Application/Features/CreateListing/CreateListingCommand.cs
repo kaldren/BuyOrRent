@@ -12,6 +12,7 @@ public class CreateListingCommand : ICommand<Guid>
     public decimal? Price { get; init; }
     public required string Address { get; init; }
     public Guid CityId { get; init; }
+    public PropertyType PropertyType { get; init; }
     public int NumberOfBedrooms { get; init; }
     public int NumberOfBathrooms { get; init; }
     public double SquareFootage { get; init; }
@@ -30,6 +31,7 @@ public class CreateListingCommand : ICommand<Guid>
                 Price = command.Price,
                 Address = command.Address,
                 CityId = command.CityId,
+                PropertyType = command.PropertyType,
                 NumberOfBedrooms = command.NumberOfBedrooms,
                 NumberOfBathrooms = command.NumberOfBathrooms,
                 SquareFootage = command.SquareFootage,

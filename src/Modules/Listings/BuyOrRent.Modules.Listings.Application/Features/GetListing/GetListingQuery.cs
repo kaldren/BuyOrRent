@@ -27,6 +27,7 @@ public class GetListingQuery : IQuery<ListingDto?>
                 listing.City.Name,
                 listing.City.Municipality.Name,
                 listing.City.Municipality.Region.Name,
+                listing.PropertyType,
                 listing.NumberOfBedrooms,
                 listing.NumberOfBathrooms,
                 listing.SquareFootage,

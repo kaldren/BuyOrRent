@@ -12,6 +12,7 @@ public record ListingDto(
     string CityName,
     string MunicipalityName,
     string RegionName,
+    PropertyType PropertyType,
     int NumberOfBedrooms,
     int NumberOfBathrooms,
     double SquareFootage,

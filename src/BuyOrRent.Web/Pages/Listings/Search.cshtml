@@ -1,0 +1,100 @@
+@page
+@using BuyOrRent.Modules.Listings.Domain.Enums
+@model BuyOrRent.Web.Pages.Listings.SearchModel
+@{
+    ViewData["Title"] = "Търсене на обяви";
+}
+
+<h1 class="mb-4">Търсене на обяви</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label">Област</label>
+                    <select name="RegionId" class="form-select" id="regionSelect" data-selected-value="@Model.RegionId">
+                        <option value="">-- Всички области --</option>
+                        @foreach (var region in Model.Regions)
+                        {
+                            <option value="@region.Value" selected="@(Model.RegionId?.ToString() == region.Value)">@region.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Община</label>
+                    <select name="MunicipalityId" class="form-select" id="municipalitySelect" data-selected-value="@Model.MunicipalityId">
+                        <option value="">-- Всички общини --</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Населено място</label>
+                    <select name="CityId" class="form-select" id="citySelect" data-selected-value="@Model.CityId">
+                        <option value="">-- Всички населени места --</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Тип имот</label>
+                    <select name="SelectedPropertyType" class="form-select">
+                        <option value="">-- Всички типове --</option>
+                        @foreach (var pt in SearchModel.PropertyTypeOptions)
+                        {
+                            <option value="@pt.Value" selected="@(Model.SelectedPropertyType?.ToString() == pt.Value)">@pt.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i> Търси
+                </button>
+                <a asp-page="Search" class="btn btn-outline-secondary">Изчисти</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (!Model.Results.Any())
+{
+    <div class="alert alert-info">Няма намерени обяви по зададените критерии.</div>
+}
+else
+{
+    <p class="text-muted mb-3">Намерени обяви: @Model.Results.Count</p>
+    <div class="row">
+        @foreach (var listing in Model.Results)
+        {
+            <div class="col-md-4 mb-4">
+                <a asp-page="Details" asp-route-id="@listing.Id" class="text-decoration-none text-reset">
+                    <div class="card h-100">
+                        @if (listing.ImageUrls.Any())
+                        {
+                            <img src="@listing.ImageUrls[0]" class="card-img-top" alt="@listing.Title" style="height: 200px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <span>Няма снимка</span>
+                            </div>
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@listing.Title</h5>
+                            <p class="card-text text-primary fw-bold">@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : "По договаряне")</p>
+                            <p class="card-text text-muted">@listing.CityName, @listing.MunicipalityName</p>
+                            <p class="card-text">
+                                <span class="badge bg-info text-dark">@SearchModel.GetPropertyTypeDisplayName(listing.PropertyType)</span>
+                            </p>
+                            <p class="card-text">
+                                <small>@listing.NumberOfBedrooms спални &middot; @listing.NumberOfBathrooms бани &middot; @listing.SquareFootage кв.м.</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+    <partial name="_LocationDropdownScriptsPartial" />
+}

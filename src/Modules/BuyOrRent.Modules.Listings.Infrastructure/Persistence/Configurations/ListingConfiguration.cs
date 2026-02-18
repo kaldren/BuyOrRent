@@ -30,6 +30,10 @@ public class ListingConfiguration : IEntityTypeConfiguration<Listing>
             .HasForeignKey(l => l.CityId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        builder.Property(l => l.PropertyType)
+            .HasConversion<string>()
+            .HasMaxLength(50);
+
         builder.Property(l => l.Status)
             .HasConversion<string>()
             .HasMaxLength(50);

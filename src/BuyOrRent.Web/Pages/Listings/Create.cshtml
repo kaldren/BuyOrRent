@@ -80,6 +80,14 @@
                 </div>
             </div>
 
+            <div class="mb-3">
+                <label asp-for="Input.PropertyType" class="form-label"></label>
+                <select asp-for="Input.PropertyType" asp-items="CreateModel.PropertyTypeOptions" class="form-select">
+                    <option value="">-- Изберете тип имот --</option>
+                </select>
+                <span asp-validation-for="Input.PropertyType" class="text-danger"></span>
+            </div>
+
             <div class="mt-3">
                 <button type="submit" class="btn btn-primary">Create</button>
                 <a asp-page="Index" class="btn btn-secondary">Cancel</a>

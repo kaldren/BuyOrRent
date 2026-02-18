@@ -25,6 +25,7 @@ public class GetListingsQuery : IQuery<IReadOnlyList<ListingDto>>
                     listing.City.Name,
                     listing.City.Municipality.Name,
                     listing.City.Municipality.Region.Name,
+                    listing.PropertyType,
                     listing.NumberOfBedrooms,
                     listing.NumberOfBathrooms,
                     listing.SquareFootage,

@@ -4,6 +4,9 @@
         const municipalitySelect = document.getElementById('municipalitySelect');
         const citySelect = document.getElementById('citySelect');
 
+        const munPlaceholder = municipalitySelect?.getAttribute('data-placeholder') || municipalitySelect?.options[0]?.text || '';
+        const cityPlaceholder = citySelect?.getAttribute('data-placeholder') || citySelect?.options[0]?.text || '';
+
         function resetSelect(select, placeholder) {
             select.innerHTML = `<option value="">${placeholder}</option>`;
             select.disabled = true;
@@ -25,19 +28,19 @@
 
         if (regionSelect) {
             regionSelect.addEventListener('change', function () {
-                resetSelect(municipalitySelect, '-- Изберете община --');
-                resetSelect(citySelect, '-- Изберете населено място --');
+                resetSelect(municipalitySelect, munPlaceholder);
+                resetSelect(citySelect, cityPlaceholder);
                 if (this.value) {
-                    loadOptions(`/api/locations/municipalities/${this.value}`, municipalitySelect, '-- Изберете община --');
+                    loadOptions(`/api/locations/municipalities/${this.value}`, municipalitySelect, munPlaceholder);
                 }
             });
         }
 
         if (municipalitySelect) {
             municipalitySelect.addEventListener('change', function () {
-                resetSelect(citySelect, '-- Изберете населено място --');
+                resetSelect(citySelect, cityPlaceholder);
                 if (this.value) {
-                    loadOptions(`/api/locations/cities/${this.value}`, citySelect, '-- Изберете населено място --');
+                    loadOptions(`/api/locations/cities/${this.value}`, citySelect, cityPlaceholder);
                 }
             });
         }
@@ -46,11 +49,11 @@
         const selectedRegion = regionSelect && (regionSelect.dataset.selectedValue || regionSelect.value);
         if (selectedRegion) {
             if (regionSelect.dataset.selectedValue) regionSelect.value = selectedRegion;
-            loadOptions(`/api/locations/municipalities/${selectedRegion}`, municipalitySelect, '-- Изберете община --').then(() => {
+            loadOptions(`/api/locations/municipalities/${selectedRegion}`, municipalitySelect, munPlaceholder).then(() => {
                 const selectedMun = municipalitySelect.dataset.selectedValue;
                 if (selectedMun) {
                     municipalitySelect.value = selectedMun;
-                    loadOptions(`/api/locations/cities/${selectedMun}`, citySelect, '-- Изберете населено място --').then(() => {
+                    loadOptions(`/api/locations/cities/${selectedMun}`, citySelect, cityPlaceholder).then(() => {
                         const selectedCity = citySelect.dataset.selectedValue;
                         if (selectedCity) {
                             citySelect.value = selectedCity;

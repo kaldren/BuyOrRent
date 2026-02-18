@@ -1,35 +1,35 @@
 @page "{id:guid}"
 @model BuyOrRent.Web.Pages.Listings.ArchiveModel
 @{
-    ViewData["Title"] = "Archive Listing";
+    ViewData["Title"] = L["Archive_Title"].Value;
 }
 
-<h1>Archive Listing</h1>
+<h1>@L["Archive_Title"]</h1>
 
 <div class="alert alert-warning">
-    <h4>Are you sure you want to archive this listing?</h4>
-    <p>The listing will no longer appear as active.</p>
+    <h4>@L["Archive_Confirm"]</h4>
+    <p>@L["Archive_Note"]</p>
 </div>
 
 <div class="card">
     <div class="card-body">
         <dl class="row">
-            <dt class="col-sm-3">Title</dt>
+            <dt class="col-sm-3">@L["Field_Title"]</dt>
             <dd class="col-sm-9">@Model.Listing.Title</dd>
 
-            <dt class="col-sm-3">Address</dt>
+            <dt class="col-sm-3">@L["Field_Address"]</dt>
             <dd class="col-sm-9">@Model.Listing.Address, @Model.Listing.CityName, @Model.Listing.MunicipalityName, @Model.Listing.RegionName</dd>
 
-            <dt class="col-sm-3">Price</dt>
-            <dd class="col-sm-9">@(Model.Listing.Price.HasValue ? Model.Listing.Price.Value.ToString("C") : "По договаряне")</dd>
+            <dt class="col-sm-3">@L["Field_Price"]</dt>
+            <dd class="col-sm-9">@(Model.Listing.Price.HasValue ? Model.Listing.Price.Value.ToString("C") : L["Negotiable"].Value)</dd>
 
-            <dt class="col-sm-3">Bedrooms</dt>
+            <dt class="col-sm-3">@L["Field_Bedrooms"]</dt>
             <dd class="col-sm-9">@Model.Listing.NumberOfBedrooms</dd>
 
-            <dt class="col-sm-3">Bathrooms</dt>
+            <dt class="col-sm-3">@L["Field_Bathrooms"]</dt>
             <dd class="col-sm-9">@Model.Listing.NumberOfBathrooms</dd>
 
-            <dt class="col-sm-3">Square Footage</dt>
+            <dt class="col-sm-3">@L["Field_SquareFootage"]</dt>
             <dd class="col-sm-9">@Model.Listing.SquareFootage</dd>
         </dl>
     </div>
@@ -37,6 +37,6 @@
 
 <form method="post" class="mt-3">
     <input type="hidden" name="id" value="@Model.Listing.Id" />
-    <button type="submit" class="btn btn-warning">Archive</button>
-    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-warning">@L["Action_Archive"]</button>
+    <a asp-page="Index" class="btn btn-secondary">@L["Action_Cancel"]</a>
 </form>

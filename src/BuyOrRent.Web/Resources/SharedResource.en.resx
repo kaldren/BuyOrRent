@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Navigation -->
+  <data name="Nav_Home" xml:space="preserve"><value>Home</value></data>
+  <data name="Nav_Listings" xml:space="preserve"><value>Listings</value></data>
+  <data name="Nav_MyListings" xml:space="preserve"><value>My Listings</value></data>
+  <data name="Nav_Admin" xml:space="preserve"><value>Admin</value></data>
+  <data name="Nav_ReviewQueue" xml:space="preserve"><value>Review Queue</value></data>
+  <data name="Nav_Privacy" xml:space="preserve"><value>Privacy</value></data>
+
+  <!-- Auth -->
+  <data name="Auth_SignIn" xml:space="preserve"><value>Sign in</value></data>
+  <data name="Auth_SignOut" xml:space="preserve"><value>Sign out</value></data>
+  <data name="Auth_Hello" xml:space="preserve"><value>Hello</value></data>
+  <data name="Auth_Admin" xml:space="preserve"><value>Admin</value></data>
+
+  <!-- Common Actions -->
+  <data name="Action_Search" xml:space="preserve"><value>Search</value></data>
+  <data name="Action_Clear" xml:space="preserve"><value>Clear</value></data>
+  <data name="Action_Create" xml:space="preserve"><value>Create</value></data>
+  <data name="Action_Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Action_Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="Action_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Action_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Action_Archive" xml:space="preserve"><value>Archive</value></data>
+  <data name="Action_Back" xml:space="preserve"><value>Back</value></data>
+  <data name="Action_Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="Action_Review" xml:space="preserve"><value>Review</value></data>
+  <data name="Action_Approve" xml:space="preserve"><value>Approve</value></data>
+  <data name="Action_Reject" xml:space="preserve"><value>Reject</value></data>
+
+  <!-- Common Labels -->
+  <data name="NoImage" xml:space="preserve"><value>No Image</value></data>
+  <data name="Negotiable" xml:space="preserve"><value>Negotiable</value></data>
+
+  <!-- Statuses -->
+  <data name="Status_Active" xml:space="preserve"><value>Active</value></data>
+  <data name="Status_PendingReview" xml:space="preserve"><value>Pending Review</value></data>
+  <data name="Status_Rejected" xml:space="preserve"><value>Rejected</value></data>
+  <data name="Status_Archived" xml:space="preserve"><value>Archived</value></data>
+
+  <!-- Property Types -->
+  <data name="PropertyType_Studio" xml:space="preserve"><value>Studio</value></data>
+  <data name="PropertyType_OneBedroom" xml:space="preserve"><value>One-bedroom</value></data>
+  <data name="PropertyType_TwoBedroom" xml:space="preserve"><value>Two-bedroom</value></data>
+  <data name="PropertyType_ThreeBedroom" xml:space="preserve"><value>Three-bedroom</value></data>
+  <data name="PropertyType_FourBedroom" xml:space="preserve"><value>Four-bedroom</value></data>
+  <data name="PropertyType_MultiBedroom" xml:space="preserve"><value>Multi-bedroom</value></data>
+  <data name="PropertyType_Maisonette" xml:space="preserve"><value>Maisonette</value></data>
+  <data name="PropertyType_House" xml:space="preserve"><value>House</value></data>
+  <data name="PropertyType_HouseFloor" xml:space="preserve"><value>House Floor</value></data>
+  <data name="PropertyType_Garage" xml:space="preserve"><value>Garage</value></data>
+  <data name="PropertyType_Land" xml:space="preserve"><value>Land</value></data>
+
+  <!-- Form Field Display Names -->
+  <data name="Field_Title" xml:space="preserve"><value>Title</value></data>
+  <data name="Field_Description" xml:space="preserve"><value>Description</value></data>
+  <data name="Field_Price" xml:space="preserve"><value>Price (leave empty for "Negotiable")</value></data>
+  <data name="Field_Address" xml:space="preserve"><value>Address</value></data>
+  <data name="Field_Region" xml:space="preserve"><value>Region</value></data>
+  <data name="Field_Municipality" xml:space="preserve"><value>Municipality</value></data>
+  <data name="Field_City" xml:space="preserve"><value>City</value></data>
+  <data name="Field_PropertyType" xml:space="preserve"><value>Property Type</value></data>
+  <data name="Field_Bedrooms" xml:space="preserve"><value>Bedrooms</value></data>
+  <data name="Field_Bathrooms" xml:space="preserve"><value>Bathrooms</value></data>
+  <data name="Field_SquareFootage" xml:space="preserve"><value>Square Footage (sq.m.)</value></data>
+  <data name="Field_ListingImages" xml:space="preserve"><value>Listing Images</value></data>
+  <data name="Field_RejectionReason" xml:space="preserve"><value>Rejection Reason</value></data>
+  <data name="Field_Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Field_Location" xml:space="preserve"><value>Location</value></data>
+  <data name="Field_Actions" xml:space="preserve"><value>Actions</value></data>
+  <data name="Field_Listed" xml:space="preserve"><value>Listed</value></data>
+  <data name="Field_Updated" xml:space="preserve"><value>Updated</value></data>
+  <data name="Field_Created" xml:space="preserve"><value>Created</value></data>
+
+  <!-- Validation Messages -->
+  <data name="Validation_TitleRequired" xml:space="preserve"><value>Title is required.</value></data>
+  <data name="Validation_TitleMaxLength" xml:space="preserve"><value>Title cannot be longer than 200 characters.</value></data>
+  <data name="Validation_DescriptionRequired" xml:space="preserve"><value>Description is required.</value></data>
+  <data name="Validation_DescriptionMaxLength" xml:space="preserve"><value>Description cannot be longer than 4000 characters.</value></data>
+  <data name="Validation_PriceRange" xml:space="preserve"><value>Price cannot be negative.</value></data>
+  <data name="Validation_AddressRequired" xml:space="preserve"><value>Address is required.</value></data>
+  <data name="Validation_AddressMaxLength" xml:space="preserve"><value>Address cannot be longer than 300 characters.</value></data>
+  <data name="Validation_CityRequired" xml:space="preserve"><value>City is required.</value></data>
+  <data name="Validation_PropertyTypeRequired" xml:space="preserve"><value>Property type is required.</value></data>
+  <data name="Validation_BedroomsRange" xml:space="preserve"><value>Bedrooms must be between 0 and 100.</value></data>
+  <data name="Validation_BathroomsRange" xml:space="preserve"><value>Bathrooms must be between 0 and 100.</value></data>
+  <data name="Validation_SquareFootageRange" xml:space="preserve"><value>Square footage cannot be negative.</value></data>
+  <data name="Validation_RejectionReasonRequired" xml:space="preserve"><value>Rejection reason is required.</value></data>
+  <data name="Validation_RejectionReasonMaxLength" xml:space="preserve"><value>Rejection reason cannot be longer than 2000 characters.</value></data>
+
+  <!-- Filter Placeholders -->
+  <data name="Filter_AllRegions" xml:space="preserve"><value>-- All regions --</value></data>
+  <data name="Filter_AllMunicipalities" xml:space="preserve"><value>-- All municipalities --</value></data>
+  <data name="Filter_AllCities" xml:space="preserve"><value>-- All cities --</value></data>
+  <data name="Filter_AllTypes" xml:space="preserve"><value>-- All types --</value></data>
+  <data name="Filter_SelectRegion" xml:space="preserve"><value>-- Select region --</value></data>
+  <data name="Filter_SelectMunicipality" xml:space="preserve"><value>-- Select municipality --</value></data>
+  <data name="Filter_SelectCity" xml:space="preserve"><value>-- Select city --</value></data>
+  <data name="Filter_SelectPropertyType" xml:space="preserve"><value>-- Select property type --</value></data>
+  <data name="PricePlaceholder" xml:space="preserve"><value>Leave empty for "Negotiable"</value></data>
+
+  <!-- Home Page -->
+  <data name="Home_Title" xml:space="preserve"><value>Home</value></data>
+  <data name="Home_Welcome" xml:space="preserve"><value>Welcome to BuyOrRent</value></data>
+  <data name="Home_Subtitle" xml:space="preserve"><value>Find your dream home today.</value></data>
+  <data name="Home_SearchTitle" xml:space="preserve"><value>Property Search</value></data>
+  <data name="Home_FeaturedListings" xml:space="preserve"><value>Featured Listings</value></data>
+  <data name="Home_ViewAll" xml:space="preserve"><value>View All Listings</value></data>
+  <data name="Home_NoListings" xml:space="preserve"><value>No listings yet. Be the first to</value></data>
+  <data name="Home_CreateOne" xml:space="preserve"><value>create one</value></data>
+
+  <!-- Listings Page -->
+  <data name="Listings_Title" xml:space="preserve"><value>Listings</value></data>
+  <data name="Listings_CreateNew" xml:space="preserve"><value>Create New Listing</value></data>
+  <data name="Listings_NoListings" xml:space="preserve"><value>No listings found. Create one to get started.</value></data>
+
+  <!-- Search Page -->
+  <data name="Search_Title" xml:space="preserve"><value>Search Listings</value></data>
+  <data name="Search_NoResults" xml:space="preserve"><value>No listings found matching the criteria.</value></data>
+  <data name="Search_ResultsCount" xml:space="preserve"><value>Listings found</value></data>
+
+  <!-- Details Page -->
+  <data name="Details_Description" xml:space="preserve"><value>Description</value></data>
+  <data name="Details_Reason" xml:space="preserve"><value>Reason</value></data>
+  <data name="Details_ReviewAsAdmin" xml:space="preserve"><value>Review as admin</value></data>
+  <data name="Details_BackToListings" xml:space="preserve"><value>Back to Listings</value></data>
+
+  <!-- Create Page -->
+  <data name="Create_Title" xml:space="preserve"><value>Create Listing</value></data>
+
+  <!-- Edit Page -->
+  <data name="Edit_Title" xml:space="preserve"><value>Edit Listing</value></data>
+  <data name="Edit_AddPhotosOptional" xml:space="preserve"><value>Optionally add new photos.</value></data>
+
+  <!-- Delete Page -->
+  <data name="Delete_Title" xml:space="preserve"><value>Delete Listing</value></data>
+  <data name="Delete_Confirm" xml:space="preserve"><value>Are you sure you want to delete this listing?</value></data>
+
+  <!-- Archive Page -->
+  <data name="Archive_Title" xml:space="preserve"><value>Archive Listing</value></data>
+  <data name="Archive_Confirm" xml:space="preserve"><value>Are you sure you want to archive this listing?</value></data>
+  <data name="Archive_Note" xml:space="preserve"><value>The listing will no longer appear as active.</value></data>
+
+  <!-- MyListings Page -->
+  <data name="MyListings_Title" xml:space="preserve"><value>My Listings</value></data>
+  <data name="MyListings_CreateNew" xml:space="preserve"><value>Create New Listing</value></data>
+  <data name="MyListings_NoListings" xml:space="preserve"><value>You have no listings yet.</value></data>
+  <data name="MyListings_RejectionReason" xml:space="preserve"><value>Rejection reason:</value></data>
+
+  <!-- Admin Pages -->
+  <data name="Admin_ReviewQueue_Title" xml:space="preserve"><value>Listings for Review</value></data>
+  <data name="Admin_ReviewQueue_NoPending" xml:space="preserve"><value>No listings pending review.</value></data>
+  <data name="Admin_ReviewQueue_PendingCount" xml:space="preserve"><value>listings pending review.</value></data>
+  <data name="Admin_Review_Title" xml:space="preserve"><value>Review Listing</value></data>
+  <data name="Admin_Review_ApproveTitle" xml:space="preserve"><value>Approval</value></data>
+  <data name="Admin_Review_ApproveDesc" xml:space="preserve"><value>Approve the listing to make it visible to all users.</value></data>
+  <data name="Admin_Review_RejectTitle" xml:space="preserve"><value>Rejection</value></data>
+  <data name="Admin_Review_RejectDesc" xml:space="preserve"><value>Reject the listing and provide a reason.</value></data>
+  <data name="Admin_Review_RejectPlaceholder" xml:space="preserve"><value>Describe the reason for rejection...</value></data>
+  <data name="Admin_Review_BackToQueue" xml:space="preserve"><value>Back to queue</value></data>
+
+  <!-- Privacy Page -->
+  <data name="Privacy_Title" xml:space="preserve"><value>Privacy Policy</value></data>
+  <data name="Privacy_Text" xml:space="preserve"><value>Use this page to detail your site's privacy policy.</value></data>
+
+  <!-- Units -->
+  <data name="Unit_Bedrooms" xml:space="preserve"><value>Bedrooms</value></data>
+  <data name="Unit_Bathrooms" xml:space="preserve"><value>Bathrooms</value></data>
+  <data name="Unit_SqM" xml:space="preserve"><value>sq.m.</value></data>
+
+  <!-- Culture Switcher -->
+  <data name="Language" xml:space="preserve"><value>Language</value></data>
+  <data name="Language_Bulgarian" xml:space="preserve"><value>Български</value></data>
+  <data name="Language_English" xml:space="preserve"><value>English</value></data>
+</root>

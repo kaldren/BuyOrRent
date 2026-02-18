@@ -5,17 +5,19 @@ using BuyOrRent.Modules.Listings.Application.Features.GetListing;
 using BuyOrRent.Modules.Listings.Domain.Enums;
 using BuyOrRent.Modules.Listings.Domain.Exceptions;
 using BuyOrRent.Web.Extensions;
+using BuyOrRent.Web.Helpers;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Localization;
 
 namespace BuyOrRent.Web.Pages.Listings;
 
 [Authorize]
-public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMediator, IImageStorageService imageStorageService, ILocationRepository locationRepository) : PageModel
+public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMediator, IImageStorageService imageStorageService, ILocationRepository locationRepository, IStringLocalizer<SharedResource> localizer) : PageModel
 {
     [BindProperty]
     public ListingInput Input { get; set; } = new();
@@ -28,21 +30,7 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
 
     public IReadOnlyList<string> CurrentImageUrls { get; set; } = [];
     public List<SelectListItem> Regions { get; set; } = [];
-
-    public static readonly List<SelectListItem> PropertyTypeOptions =
-    [
-        new("Студио", nameof(PropertyType.Studio)),
-        new("Едностаен", nameof(PropertyType.OneBedroom)),
-        new("Двустаен", nameof(PropertyType.TwoBedroom)),
-        new("Тристаен", nameof(PropertyType.ThreeBedroom)),
-        new("Четиристаен", nameof(PropertyType.FourBedroom)),
-        new("Многостаен", nameof(PropertyType.MultiBedroom)),
-        new("Мезонет", nameof(PropertyType.Maisonette)),
-        new("Къща", nameof(PropertyType.House)),
-        new("Етаж от къща", nameof(PropertyType.HouseFloor)),
-        new("Гараж", nameof(PropertyType.Garage)),
-        new("Парцел", nameof(PropertyType.Land)),
-    ];
+    public List<SelectListItem> PropertyTypeOptions { get; set; } = [];
 
     // Pre-selected values for cascading JS
     public Guid? SelectedRegionId { get; set; }
@@ -83,7 +71,7 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
             SelectedRegionId = city.Municipality.RegionId;
         }
 
-        await LoadRegionsAsync(cancellationToken);
+        await LoadFormDataAsync(cancellationToken);
 
         return Page();
     }
@@ -153,15 +141,16 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
         return RedirectToPage("Index");
     }
 
-    private async Task LoadRegionsAsync(CancellationToken cancellationToken)
+    private async Task LoadFormDataAsync(CancellationToken cancellationToken)
     {
         var regions = await locationRepository.GetAllRegionsAsync(cancellationToken);
         Regions = regions.Select(r => new SelectListItem(r.Name, r.Id.ToString())).ToList();
+        PropertyTypeOptions = PropertyTypeHelper.GetSelectListItems(localizer);
     }
 
     private async Task ReloadPageDataAsync(CancellationToken cancellationToken)
     {
-        await LoadRegionsAsync(cancellationToken);
+        await LoadFormDataAsync(cancellationToken);
 
         var listing = await queryMediator.QueryAsync(new GetListingQuery { Id = Input.Id }, cancellationToken);
         if (listing is not null)
@@ -183,43 +172,43 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
         [Required]
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "Заглавието е задължително.")]
-        [StringLength(200, ErrorMessage = "Заглавието не може да бъде по-дълго от 200 символа.")]
-        [Display(Name = "Заглавие")]
+        [Required(ErrorMessage = "Validation_TitleRequired")]
+        [StringLength(200, ErrorMessage = "Validation_TitleMaxLength")]
+        [Display(Name = "Field_Title")]
         public string Title { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Описанието е задължително.")]
-        [StringLength(4000, ErrorMessage = "Описанието не може да бъде по-дълго от 4000 символа.")]
-        [Display(Name = "Описание")]
+        [Required(ErrorMessage = "Validation_DescriptionRequired")]
+        [StringLength(4000, ErrorMessage = "Validation_DescriptionMaxLength")]
+        [Display(Name = "Field_Description")]
         public string Description { get; set; } = string.Empty;
 
-        [Range(0, double.MaxValue, ErrorMessage = "Цената не може да бъде отрицателна.")]
-        [Display(Name = "Цена (оставете празно за \"По договаряне\")")]
+        [Range(0, double.MaxValue, ErrorMessage = "Validation_PriceRange")]
+        [Display(Name = "Field_Price")]
         public decimal? Price { get; set; }
 
-        [Required(ErrorMessage = "Адресът е задължителен.")]
-        [StringLength(300, ErrorMessage = "Адресът не може да бъде по-дълъг от 300 символа.")]
-        [Display(Name = "Адрес")]
+        [Required(ErrorMessage = "Validation_AddressRequired")]
+        [StringLength(300, ErrorMessage = "Validation_AddressMaxLength")]
+        [Display(Name = "Field_Address")]
         public string Address { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Населеното място е задължително.")]
-        [Display(Name = "Населено място")]
+        [Required(ErrorMessage = "Validation_CityRequired")]
+        [Display(Name = "Field_City")]
         public Guid CityId { get; set; }
 
-        [Required(ErrorMessage = "Типът имот е задължителен.")]
-        [Display(Name = "Тип имот")]
+        [Required(ErrorMessage = "Validation_PropertyTypeRequired")]
+        [Display(Name = "Field_PropertyType")]
         public PropertyType PropertyType { get; set; }
 
-        [Range(0, 100, ErrorMessage = "Броят спални трябва да бъде между 0 и 100.")]
-        [Display(Name = "Спални")]
+        [Range(0, 100, ErrorMessage = "Validation_BedroomsRange")]
+        [Display(Name = "Field_Bedrooms")]
         public int NumberOfBedrooms { get; set; }
 
-        [Range(0, 100, ErrorMessage = "Броят бани трябва да бъде между 0 и 100.")]
-        [Display(Name = "Бани")]
+        [Range(0, 100, ErrorMessage = "Validation_BathroomsRange")]
+        [Display(Name = "Field_Bathrooms")]
         public int NumberOfBathrooms { get; set; }
 
-        [Range(0, double.MaxValue, ErrorMessage = "Квадратурата не може да бъде отрицателна.")]
-        [Display(Name = "Квадратура (кв.м.)")]
+        [Range(0, double.MaxValue, ErrorMessage = "Validation_SquareFootageRange")]
+        [Display(Name = "Field_SquareFootage")]
         public double SquareFootage { get; set; }
     }
 }

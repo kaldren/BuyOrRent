@@ -2,34 +2,34 @@
 @using BuyOrRent.Modules.Listings.Domain.Enums
 @model BuyOrRent.Web.Pages.Listings.IndexModel
 @{
-    ViewData["Title"] = "Listings";
+    ViewData["Title"] = L["Listings_Title"].Value;
 }
 
-<h1>Listings</h1>
+<h1>@L["Listings_Title"]</h1>
 
 @if (User.Identity?.IsAuthenticated == true)
 {
     <p>
-        <a asp-page="Create" class="btn btn-primary">Create New Listing</a>
+        <a asp-page="Create" class="btn btn-primary">@L["Listings_CreateNew"]</a>
     </p>
 }
 
 @if (!Model.Listings.Any())
 {
-    <div class="alert alert-info">No listings found. Create one to get started.</div>
+    <div class="alert alert-info">@L["Listings_NoListings"]</div>
 }
 else
 {
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Location</th>
-                <th>Price</th>
-                <th>Bedrooms</th>
-                <th>Bathrooms</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th>@L["Field_Title"]</th>
+                <th>@L["Field_Location"]</th>
+                <th>@L["Field_Price"]</th>
+                <th>@L["Field_Bedrooms"]</th>
+                <th>@L["Field_Bathrooms"]</th>
+                <th>@L["Field_Status"]</th>
+                <th>@L["Field_Actions"]</th>
             </tr>
         </thead>
         <tbody>
@@ -38,16 +38,16 @@ else
                 <tr>
                     <td><a asp-page="Details" asp-route-id="@listing.Id">@listing.Title</a></td>
                     <td>@listing.CityName, @listing.MunicipalityName</td>
-                    <td>@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : "По договаряне")</td>
+                    <td>@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : L["Negotiable"].Value)</td>
                     <td>@listing.NumberOfBedrooms</td>
                     <td>@listing.NumberOfBathrooms</td>
-                    <td><span class="badge bg-success">Активна</span></td>
+                    <td><span class="badge bg-success">@L["Status_Active"]</span></td>
                     <td>
                         @if (listing.SellerId == Model.CurrentUserId)
                         {
-                            <a asp-page="Edit" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-primary">Edit</a>
-                            <a asp-page="Archive" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-warning">Archive</a>
-                            <a asp-page="Delete" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                            <a asp-page="Edit" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-primary">@L["Action_Edit"]</a>
+                            <a asp-page="Archive" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-warning">@L["Action_Archive"]</a>
+                            <a asp-page="Delete" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-danger">@L["Action_Delete"]</a>
                         }
                     </td>
                 </tr>

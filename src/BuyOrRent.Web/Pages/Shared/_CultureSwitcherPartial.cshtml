@@ -1,0 +1,32 @@
+@using Microsoft.AspNetCore.Localization
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var currentCulture = requestCulture?.RequestCulture.UICulture.Name ?? "bg";
+    var returnUrl = Context.Request.Path + Context.Request.QueryString;
+}
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        @(currentCulture == "bg" ? "🇧🇬" : "🇺🇸") @L["Language"]
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <form method="post" action="/culture">
+                <input type="hidden" name="culture" value="bg" />
+                <input type="hidden" name="returnUrl" value="@returnUrl" />
+                <button type="submit" class="dropdown-item @(currentCulture == "bg" ? "active" : "")">
+                    🇧🇬 @L["Language_Bulgarian"]
+                </button>
+            </form>
+        </li>
+        <li>
+            <form method="post" action="/culture">
+                <input type="hidden" name="culture" value="en" />
+                <input type="hidden" name="returnUrl" value="@returnUrl" />
+                <button type="submit" class="dropdown-item @(currentCulture == "en" ? "active" : "")">
+                    🇺🇸 @L["Language_English"]
+                </button>
+            </form>
+        </li>
+    </ul>
+</li>

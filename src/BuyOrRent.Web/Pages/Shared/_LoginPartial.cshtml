@@ -4,20 +4,20 @@
 @if (User.Identity?.IsAuthenticated == true)
 {
         <span class="navbar-text text-dark">
-            Hello @User.Identity?.Name!
+            @L["Auth_Hello"] @User.Identity?.Name!
             @if (User.IsAdmin())
             {
-                <span class="badge bg-danger ms-1">Admin</span>
+                <span class="badge bg-danger ms-1">@L["Auth_Admin"]</span>
             }
         </span>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Sign out</a>
+            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">@L["Auth_SignOut"]</a>
         </li>
 }
 else
 {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Sign in</a>
+            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">@L["Auth_SignIn"]</a>
         </li>
 }
 </ul>

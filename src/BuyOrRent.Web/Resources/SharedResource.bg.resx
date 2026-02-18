@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Navigation -->
+  <data name="Nav_Home" xml:space="preserve"><value>Начало</value></data>
+  <data name="Nav_Listings" xml:space="preserve"><value>Обяви</value></data>
+  <data name="Nav_MyListings" xml:space="preserve"><value>Моите обяви</value></data>
+  <data name="Nav_Admin" xml:space="preserve"><value>Админ</value></data>
+  <data name="Nav_ReviewQueue" xml:space="preserve"><value>Обяви за преглед</value></data>
+  <data name="Nav_Privacy" xml:space="preserve"><value>Поверителност</value></data>
+
+  <!-- Auth -->
+  <data name="Auth_SignIn" xml:space="preserve"><value>Вход</value></data>
+  <data name="Auth_SignOut" xml:space="preserve"><value>Изход</value></data>
+  <data name="Auth_Hello" xml:space="preserve"><value>Здравейте</value></data>
+  <data name="Auth_Admin" xml:space="preserve"><value>Админ</value></data>
+
+  <!-- Common Actions -->
+  <data name="Action_Search" xml:space="preserve"><value>Търси</value></data>
+  <data name="Action_Clear" xml:space="preserve"><value>Изчисти</value></data>
+  <data name="Action_Create" xml:space="preserve"><value>Създай</value></data>
+  <data name="Action_Edit" xml:space="preserve"><value>Редактирай</value></data>
+  <data name="Action_Delete" xml:space="preserve"><value>Изтрий</value></data>
+  <data name="Action_Save" xml:space="preserve"><value>Запази</value></data>
+  <data name="Action_Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Action_Archive" xml:space="preserve"><value>Архивирай</value></data>
+  <data name="Action_Back" xml:space="preserve"><value>Назад</value></data>
+  <data name="Action_Remove" xml:space="preserve"><value>Премахни</value></data>
+  <data name="Action_Review" xml:space="preserve"><value>Прегледай</value></data>
+  <data name="Action_Approve" xml:space="preserve"><value>Одобри</value></data>
+  <data name="Action_Reject" xml:space="preserve"><value>Отхвърли</value></data>
+
+  <!-- Common Labels -->
+  <data name="NoImage" xml:space="preserve"><value>Няма снимка</value></data>
+  <data name="Negotiable" xml:space="preserve"><value>По договаряне</value></data>
+
+  <!-- Statuses -->
+  <data name="Status_Active" xml:space="preserve"><value>Активна</value></data>
+  <data name="Status_PendingReview" xml:space="preserve"><value>Чака преглед</value></data>
+  <data name="Status_Rejected" xml:space="preserve"><value>Отхвърлена</value></data>
+  <data name="Status_Archived" xml:space="preserve"><value>Архивирана</value></data>
+
+  <!-- Property Types -->
+  <data name="PropertyType_Studio" xml:space="preserve"><value>Студио</value></data>
+  <data name="PropertyType_OneBedroom" xml:space="preserve"><value>Едностаен</value></data>
+  <data name="PropertyType_TwoBedroom" xml:space="preserve"><value>Двустаен</value></data>
+  <data name="PropertyType_ThreeBedroom" xml:space="preserve"><value>Тристаен</value></data>
+  <data name="PropertyType_FourBedroom" xml:space="preserve"><value>Четиристаен</value></data>
+  <data name="PropertyType_MultiBedroom" xml:space="preserve"><value>Многостаен</value></data>
+  <data name="PropertyType_Maisonette" xml:space="preserve"><value>Мезонет</value></data>
+  <data name="PropertyType_House" xml:space="preserve"><value>Къща</value></data>
+  <data name="PropertyType_HouseFloor" xml:space="preserve"><value>Етаж от къща</value></data>
+  <data name="PropertyType_Garage" xml:space="preserve"><value>Гараж</value></data>
+  <data name="PropertyType_Land" xml:space="preserve"><value>Парцел</value></data>
+
+  <!-- Form Field Display Names -->
+  <data name="Field_Title" xml:space="preserve"><value>Заглавие</value></data>
+  <data name="Field_Description" xml:space="preserve"><value>Описание</value></data>
+  <data name="Field_Price" xml:space="preserve"><value>Цена (оставете празно за "По договаряне")</value></data>
+  <data name="Field_Address" xml:space="preserve"><value>Адрес</value></data>
+  <data name="Field_Region" xml:space="preserve"><value>Област</value></data>
+  <data name="Field_Municipality" xml:space="preserve"><value>Община</value></data>
+  <data name="Field_City" xml:space="preserve"><value>Населено място</value></data>
+  <data name="Field_PropertyType" xml:space="preserve"><value>Тип имот</value></data>
+  <data name="Field_Bedrooms" xml:space="preserve"><value>Спални</value></data>
+  <data name="Field_Bathrooms" xml:space="preserve"><value>Бани</value></data>
+  <data name="Field_SquareFootage" xml:space="preserve"><value>Квадратура (кв.м.)</value></data>
+  <data name="Field_ListingImages" xml:space="preserve"><value>Снимки на обявата</value></data>
+  <data name="Field_RejectionReason" xml:space="preserve"><value>Причина за отхвърляне</value></data>
+  <data name="Field_Status" xml:space="preserve"><value>Статус</value></data>
+  <data name="Field_Location" xml:space="preserve"><value>Местоположение</value></data>
+  <data name="Field_Actions" xml:space="preserve"><value>Действия</value></data>
+  <data name="Field_Listed" xml:space="preserve"><value>Публикувана</value></data>
+  <data name="Field_Updated" xml:space="preserve"><value>Обновена</value></data>
+  <data name="Field_Created" xml:space="preserve"><value>Създадена</value></data>
+
+  <!-- Validation Messages -->
+  <data name="Validation_TitleRequired" xml:space="preserve"><value>Заглавието е задължително.</value></data>
+  <data name="Validation_TitleMaxLength" xml:space="preserve"><value>Заглавието не може да бъде по-дълго от 200 символа.</value></data>
+  <data name="Validation_DescriptionRequired" xml:space="preserve"><value>Описанието е задължително.</value></data>
+  <data name="Validation_DescriptionMaxLength" xml:space="preserve"><value>Описанието не може да бъде по-дълго от 4000 символа.</value></data>
+  <data name="Validation_PriceRange" xml:space="preserve"><value>Цената не може да бъде отрицателна.</value></data>
+  <data name="Validation_AddressRequired" xml:space="preserve"><value>Адресът е задължителен.</value></data>
+  <data name="Validation_AddressMaxLength" xml:space="preserve"><value>Адресът не може да бъде по-дълъг от 300 символа.</value></data>
+  <data name="Validation_CityRequired" xml:space="preserve"><value>Населеното място е задължително.</value></data>
+  <data name="Validation_PropertyTypeRequired" xml:space="preserve"><value>Типът имот е задължителен.</value></data>
+  <data name="Validation_BedroomsRange" xml:space="preserve"><value>Броят спални трябва да бъде между 0 и 100.</value></data>
+  <data name="Validation_BathroomsRange" xml:space="preserve"><value>Броят бани трябва да бъде между 0 и 100.</value></data>
+  <data name="Validation_SquareFootageRange" xml:space="preserve"><value>Квадратурата не може да бъде отрицателна.</value></data>
+  <data name="Validation_RejectionReasonRequired" xml:space="preserve"><value>Причината за отхвърляне е задължителна.</value></data>
+  <data name="Validation_RejectionReasonMaxLength" xml:space="preserve"><value>Причината за отхвърляне не може да бъде по-дълга от 2000 символа.</value></data>
+
+  <!-- Filter Placeholders -->
+  <data name="Filter_AllRegions" xml:space="preserve"><value>-- Всички области --</value></data>
+  <data name="Filter_AllMunicipalities" xml:space="preserve"><value>-- Всички общини --</value></data>
+  <data name="Filter_AllCities" xml:space="preserve"><value>-- Всички населени места --</value></data>
+  <data name="Filter_AllTypes" xml:space="preserve"><value>-- Всички типове --</value></data>
+  <data name="Filter_SelectRegion" xml:space="preserve"><value>-- Изберете област --</value></data>
+  <data name="Filter_SelectMunicipality" xml:space="preserve"><value>-- Изберете община --</value></data>
+  <data name="Filter_SelectCity" xml:space="preserve"><value>-- Изберете населено място --</value></data>
+  <data name="Filter_SelectPropertyType" xml:space="preserve"><value>-- Изберете тип имот --</value></data>
+  <data name="PricePlaceholder" xml:space="preserve"><value>Оставете празно за "По договаряне"</value></data>
+
+  <!-- Home Page -->
+  <data name="Home_Title" xml:space="preserve"><value>Начална страница</value></data>
+  <data name="Home_Welcome" xml:space="preserve"><value>Добре дошли в BuyOrRent</value></data>
+  <data name="Home_Subtitle" xml:space="preserve"><value>Намерете мечтания си дом днес.</value></data>
+  <data name="Home_SearchTitle" xml:space="preserve"><value>Търсене на имот</value></data>
+  <data name="Home_FeaturedListings" xml:space="preserve"><value>Препоръчани обяви</value></data>
+  <data name="Home_ViewAll" xml:space="preserve"><value>Вижте всички обяви</value></data>
+  <data name="Home_NoListings" xml:space="preserve"><value>Все още няма обяви. Бъдете първите, които ще</value></data>
+  <data name="Home_CreateOne" xml:space="preserve"><value>създадат обява</value></data>
+
+  <!-- Listings Page -->
+  <data name="Listings_Title" xml:space="preserve"><value>Обяви</value></data>
+  <data name="Listings_CreateNew" xml:space="preserve"><value>Създай нова обява</value></data>
+  <data name="Listings_NoListings" xml:space="preserve"><value>Не са намерени обяви. Създайте първата.</value></data>
+
+  <!-- Search Page -->
+  <data name="Search_Title" xml:space="preserve"><value>Търсене на обяви</value></data>
+  <data name="Search_NoResults" xml:space="preserve"><value>Няма намерени обяви по зададените критерии.</value></data>
+  <data name="Search_ResultsCount" xml:space="preserve"><value>Намерени обяви</value></data>
+
+  <!-- Details Page -->
+  <data name="Details_Description" xml:space="preserve"><value>Описание</value></data>
+  <data name="Details_Reason" xml:space="preserve"><value>Причина</value></data>
+  <data name="Details_ReviewAsAdmin" xml:space="preserve"><value>Прегледай като администратор</value></data>
+  <data name="Details_BackToListings" xml:space="preserve"><value>Обратно към обявите</value></data>
+
+  <!-- Create Page -->
+  <data name="Create_Title" xml:space="preserve"><value>Създаване на обява</value></data>
+
+  <!-- Edit Page -->
+  <data name="Edit_Title" xml:space="preserve"><value>Редактиране на обява</value></data>
+  <data name="Edit_AddPhotosOptional" xml:space="preserve"><value>По желание добавете нови снимки.</value></data>
+
+  <!-- Delete Page -->
+  <data name="Delete_Title" xml:space="preserve"><value>Изтриване на обява</value></data>
+  <data name="Delete_Confirm" xml:space="preserve"><value>Сигурни ли сте, че искате да изтриете тази обява?</value></data>
+
+  <!-- Archive Page -->
+  <data name="Archive_Title" xml:space="preserve"><value>Архивиране на обява</value></data>
+  <data name="Archive_Confirm" xml:space="preserve"><value>Сигурни ли сте, че искате да архивирате тази обява?</value></data>
+  <data name="Archive_Note" xml:space="preserve"><value>Обявата вече няма да се показва като активна.</value></data>
+
+  <!-- MyListings Page -->
+  <data name="MyListings_Title" xml:space="preserve"><value>Моите обяви</value></data>
+  <data name="MyListings_CreateNew" xml:space="preserve"><value>Създай нова обява</value></data>
+  <data name="MyListings_NoListings" xml:space="preserve"><value>Все още нямате обяви.</value></data>
+  <data name="MyListings_RejectionReason" xml:space="preserve"><value>Причина за отхвърляне:</value></data>
+
+  <!-- Admin Pages -->
+  <data name="Admin_ReviewQueue_Title" xml:space="preserve"><value>Обяви за преглед</value></data>
+  <data name="Admin_ReviewQueue_NoPending" xml:space="preserve"><value>Няма обяви чакащи преглед.</value></data>
+  <data name="Admin_ReviewQueue_PendingCount" xml:space="preserve"><value>обяви чакат преглед.</value></data>
+  <data name="Admin_Review_Title" xml:space="preserve"><value>Преглед на обява</value></data>
+  <data name="Admin_Review_ApproveTitle" xml:space="preserve"><value>Одобряване</value></data>
+  <data name="Admin_Review_ApproveDesc" xml:space="preserve"><value>Одобрете обявата, за да стане видима за всички потребители.</value></data>
+  <data name="Admin_Review_RejectTitle" xml:space="preserve"><value>Отхвърляне</value></data>
+  <data name="Admin_Review_RejectDesc" xml:space="preserve"><value>Отхвърлете обявата и посочете причина.</value></data>
+  <data name="Admin_Review_RejectPlaceholder" xml:space="preserve"><value>Опишете причината за отхвърляне...</value></data>
+  <data name="Admin_Review_BackToQueue" xml:space="preserve"><value>Обратно към опашката</value></data>
+
+  <!-- Privacy Page -->
+  <data name="Privacy_Title" xml:space="preserve"><value>Политика за поверителност</value></data>
+  <data name="Privacy_Text" xml:space="preserve"><value>Използвайте тази страница, за да опишете политиката за поверителност на сайта.</value></data>
+
+  <!-- Units -->
+  <data name="Unit_Bedrooms" xml:space="preserve"><value>Спални</value></data>
+  <data name="Unit_Bathrooms" xml:space="preserve"><value>Бани</value></data>
+  <data name="Unit_SqM" xml:space="preserve"><value>кв.м.</value></data>
+
+  <!-- Culture Switcher -->
+  <data name="Language" xml:space="preserve"><value>Език</value></data>
+  <data name="Language_Bulgarian" xml:space="preserve"><value>Български</value></data>
+  <data name="Language_English" xml:space="preserve"><value>English</value></data>
+</root>

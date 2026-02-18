@@ -1,4 +1,4 @@
-using BuyOrRent.Modules.Listings.API;
+using Listings.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 

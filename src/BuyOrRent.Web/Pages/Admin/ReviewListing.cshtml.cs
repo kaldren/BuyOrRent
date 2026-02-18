@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-using BuyOrRent.Modules.Listings.Application.Dtos;
-using BuyOrRent.Modules.Listings.Application.Features.ApproveListing;
-using BuyOrRent.Modules.Listings.Application.Features.GetListing;
-using BuyOrRent.Modules.Listings.Application.Features.RejectListing;
-using BuyOrRent.Modules.Listings.Domain.Enums;
+using Listings.Listing.Dtos;
+using Listings.Listing.Enums;
+using Listings.Listing.Features.ApproveListing;
+using Listings.Listing.Features.GetListing;
+using Listings.Listing.Features.RejectListing;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
 using Microsoft.AspNetCore.Authorization;

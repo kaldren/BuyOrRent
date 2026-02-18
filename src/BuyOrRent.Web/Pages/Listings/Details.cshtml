@@ -1,5 +1,5 @@
 @page "{id:guid}"
-@using BuyOrRent.Modules.Listings.Domain.Enums
+@using global::Listings.Listing.Enums
 @model BuyOrRent.Web.Pages.Listings.DetailsModel
 @{
     ViewData["Title"] = Model.Listing.Title;
@@ -10,11 +10,11 @@
         @if (Model.Listing.ImageUrls.Any())
         {
             <div id="listingCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
-                <div class="carousel-inner">
+                <div class="carousel-inner" style="border-radius: .75rem; overflow: hidden;">
                     @for (var i = 0; i < Model.Listing.ImageUrls.Count; i++)
                     {
                         <div class="carousel-item @(i == 0 ? "active" : "")">
-                            <img src="@Model.Listing.ImageUrls[i]" class="d-block w-100 rounded" alt="@Model.Listing.Title" style="max-height: 400px; object-fit: cover;" />
+                            <img src="@Model.Listing.ImageUrls[i]" class="d-block w-100" alt="@Model.Listing.Title" style="max-height: 400px; object-fit: cover;" />
                         </div>
                     }
                 </div>
@@ -33,7 +33,7 @@
         }
 
         <h1>@Model.Listing.Title</h1>
-        <p class="text-primary fs-3 fw-bold">@(Model.Listing.Price.HasValue ? Model.Listing.Price.Value.ToString("C") : L["Negotiable"].Value)</p>
+        <p class="fs-3 fw-bold" style="color: var(--primary-dark);">@(Model.Listing.Price.HasValue ? Model.Listing.Price.Value.ToString("C") : L["Negotiable"].Value)</p>
 
         <p class="text-muted">
             @Model.Listing.Address<br />
@@ -44,23 +44,88 @@
 
         <div class="row text-center mb-4">
             <div class="col">
-                <div class="fs-4 fw-bold">@Model.Listing.NumberOfBedrooms</div>
-                <div class="text-muted">@L["Unit_Bedrooms"]</div>
+                <div class="card search-card p-3">
+                    <div class="fs-4 fw-bold" style="color: var(--primary-dark);">@Model.Listing.NumberOfBedrooms</div>
+                    <div class="text-muted small">@L["Unit_Bedrooms"]</div>
+                </div>
             </div>
             <div class="col">
-                <div class="fs-4 fw-bold">@Model.Listing.NumberOfBathrooms</div>
-                <div class="text-muted">@L["Unit_Bathrooms"]</div>
+                <div class="card search-card p-3">
+                    <div class="fs-4 fw-bold" style="color: var(--primary-dark);">@Model.Listing.NumberOfBathrooms</div>
+                    <div class="text-muted small">@L["Unit_Bathrooms"]</div>
+                </div>
             </div>
             <div class="col">
-                <div class="fs-4 fw-bold">@Model.Listing.SquareFootage.ToString("N0")</div>
-                <div class="text-muted">@L["Unit_SqM"]</div>
+                <div class="card search-card p-3">
+                    <div class="fs-4 fw-bold" style="color: var(--primary-dark);">@Model.Listing.SquareFootage.ToString("N0")</div>
+                    <div class="text-muted small">@L["Unit_SqM"]</div>
+                </div>
             </div>
         </div>
 
         <hr />
 
-        <h5>@L["Details_Description"]</h5>
+        <h5 class="section-heading">@L["Details_Description"]</h5>
         <p>@Model.Listing.Description</p>
+
+        <hr />
+
+        <!-- Rating Section -->
+        <div class="mb-4">
+            <h5 class="section-heading">@L["Rating_Title"]</h5>
+            @if (Model.RatingSummary.TotalRatings > 0)
+            {
+                <div class="d-flex align-items-center mb-2">
+                    <span class="fs-4 fw-bold me-2">@Model.RatingSummary.AverageStars.ToString("0.0")</span>
+                    <span class="stars-filled me-2">
+                        @for (var s = 1; s <= 5; s++)
+                        {
+                            if (s <= Math.Round(Model.RatingSummary.AverageStars))
+                            {
+                                <span>&#9733;</span>
+                            }
+                            else
+                            {
+                                <span class="stars-empty">&#9734;</span>
+                            }
+                        }
+                    </span>
+                    <span class="text-muted">(@Model.RatingSummary.TotalRatings @L["Rating_Reviews"])</span>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">@L["Rating_NoRatings"]</p>
+            }
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <div class="mt-2">
+                    <span class="text-muted small mb-1 d-block">
+                        @if (Model.RatingSummary.UserRating.HasValue)
+                        {
+                            @L["Rating_YourRating"]
+                        }
+                        else
+                        {
+                            @L["Rating_RateThis"]
+                        }
+                    </span>
+                    <form method="post" asp-page-handler="Rate" asp-route-id="@Model.Listing.Id" class="d-inline">
+                        @for (var s = 1; s <= 5; s++)
+                        {
+                            var starValue = s;
+                            var isSelected = Model.RatingSummary.UserRating.HasValue && s <= Model.RatingSummary.UserRating.Value;
+                            <button type="submit" name="stars" value="@starValue"
+                                    class="btn btn-link p-0 fs-4 text-decoration-none @(isSelected ? "stars-filled" : "stars-empty")"
+                                    title="@starValue">
+                                @(isSelected ? "★" : "☆")
+                            </button>
+                        }
+                    </form>
+                </div>
+            }
+        </div>
 
         <hr />
 

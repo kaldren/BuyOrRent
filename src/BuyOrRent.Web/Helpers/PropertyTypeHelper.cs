@@ -1,4 +1,4 @@
-using BuyOrRent.Modules.Listings.Domain.Enums;
+using Listings.Listing.Enums;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 

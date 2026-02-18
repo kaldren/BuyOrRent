@@ -4,14 +4,14 @@
     ViewData["Title"] = L["Home_Title"].Value;
 }
 
-<div class="text-center mb-4">
-    <h1 class="display-4">@L["Home_Welcome"]</h1>
-    <p class="lead">@L["Home_Subtitle"]</p>
+<div class="hero-section">
+    <h1>@L["Home_Welcome"]</h1>
+    <p>@L["Home_Subtitle"]</p>
 </div>
 
-<div class="card mb-5 shadow-sm">
+<div class="card search-card mb-5">
     <div class="card-body">
-        <h5 class="card-title mb-3">@L["Home_SearchTitle"]</h5>
+        <h5 class="section-heading">@L["Home_SearchTitle"]</h5>
         <form method="get" action="/Listings/Search">
             <div class="row g-3 align-items-end">
                 <div class="col-md-3">
@@ -58,26 +58,45 @@
 
 @if (Model.FeaturedListings.Any())
 {
-    <h2 class="mb-3">@L["Home_FeaturedListings"]</h2>
+    <h2 class="section-heading">@L["Home_FeaturedListings"]</h2>
     <div class="row">
         @foreach (var listing in Model.FeaturedListings)
         {
             <div class="col-md-4 mb-4">
                 <a asp-page="/Listings/Details" asp-route-id="@listing.Id" class="text-decoration-none text-reset">
-                <div class="card h-100">
+                <div class="card listing-card h-100">
                     @if (listing.ImageUrls.Any())
                     {
-                        <img src="@listing.ImageUrls[0]" class="card-img-top" alt="@listing.Title" style="height: 200px; object-fit: cover;" />
+                        <img src="@listing.ImageUrls[0]" class="card-img-top" alt="@listing.Title" />
                     }
                     else
                     {
-                        <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <div class="no-image-placeholder">
                             <span>@L["NoImage"]</span>
                         </div>
                     }
                     <div class="card-body">
                         <h5 class="card-title">@listing.Title</h5>
-                        <p class="card-text text-primary fw-bold">@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : L["Negotiable"].Value)</p>
+                        <p class="card-text price">@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : L["Negotiable"].Value)</p>
+                        @{
+                            Model.Ratings.TryGetValue(listing.Id, out var rating);
+                        }
+                        <p class="card-text">
+                            <span class="stars-filled">
+                                @for (var s = 1; s <= 5; s++)
+                                {
+                                    if (s <= Math.Round(rating.Average))
+                                    {
+                                        <span>&#9733;</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="stars-empty">&#9734;</span>
+                                    }
+                                }
+                            </span>
+                            <small class="text-muted">(@rating.Count)</small>
+                        </p>
                         <p class="card-text text-muted">@listing.CityName, @listing.MunicipalityName</p>
                         <p class="card-text">
                             <small>@listing.NumberOfBedrooms @L["Unit_Bedrooms"] &middot; @listing.NumberOfBathrooms @L["Unit_Bathrooms"] &middot; @listing.SquareFootage @L["Unit_SqM"]</small>

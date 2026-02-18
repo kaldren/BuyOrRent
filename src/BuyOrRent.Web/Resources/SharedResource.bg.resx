@@ -220,6 +220,13 @@
   <data name="Unit_Bathrooms" xml:space="preserve"><value>Бани</value></data>
   <data name="Unit_SqM" xml:space="preserve"><value>кв.м.</value></data>
 
+  <!-- Rating -->
+  <data name="Rating_Title" xml:space="preserve"><value>Оценка</value></data>
+  <data name="Rating_Reviews" xml:space="preserve"><value>отзива</value></data>
+  <data name="Rating_NoRatings" xml:space="preserve"><value>Все още няма оценки.</value></data>
+  <data name="Rating_RateThis" xml:space="preserve"><value>Оценете тази обява:</value></data>
+  <data name="Rating_YourRating" xml:space="preserve"><value>Вашата оценка:</value></data>
+
   <!-- Culture Switcher -->
   <data name="Language" xml:space="preserve"><value>Език</value></data>
   <data name="Language_Bulgarian" xml:space="preserve"><value>Български</value></data>

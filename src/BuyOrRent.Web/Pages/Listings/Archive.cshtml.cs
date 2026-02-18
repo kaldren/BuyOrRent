@@ -1,7 +1,7 @@
-using BuyOrRent.Modules.Listings.Application.Dtos;
-using BuyOrRent.Modules.Listings.Application.Features.ArchiveListing;
-using BuyOrRent.Modules.Listings.Application.Features.GetListing;
-using BuyOrRent.Modules.Listings.Domain.Exceptions;
+using Listings.Listing.Dtos;
+using Listings.Listing.Exceptions;
+using Listings.Listing.Features.ArchiveListing;
+using Listings.Listing.Features.GetListing;
 using BuyOrRent.Web.Extensions;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;

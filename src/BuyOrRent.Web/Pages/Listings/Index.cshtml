@@ -1,11 +1,11 @@
 @page
-@using BuyOrRent.Modules.Listings.Domain.Enums
+@using global::Listings.Listing.Enums
 @model BuyOrRent.Web.Pages.Listings.IndexModel
 @{
     ViewData["Title"] = L["Listings_Title"].Value;
 }
 
-<h1>@L["Listings_Title"]</h1>
+<h1 class="section-heading">@L["Listings_Title"]</h1>
 
 @if (User.Identity?.IsAuthenticated == true)
 {
@@ -20,7 +20,8 @@
 }
 else
 {
-    <table class="table table-striped">
+    <div class="table-responsive">
+    <table class="table table-striped align-middle">
         <thead>
             <tr>
                 <th>@L["Field_Title"]</th>
@@ -28,6 +29,7 @@ else
                 <th>@L["Field_Price"]</th>
                 <th>@L["Field_Bedrooms"]</th>
                 <th>@L["Field_Bathrooms"]</th>
+                <th>@L["Rating_Title"]</th>
                 <th>@L["Field_Status"]</th>
                 <th>@L["Field_Actions"]</th>
             </tr>
@@ -38,15 +40,34 @@ else
                 <tr>
                     <td><a asp-page="Details" asp-route-id="@listing.Id">@listing.Title</a></td>
                     <td>@listing.CityName, @listing.MunicipalityName</td>
-                    <td>@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : L["Negotiable"].Value)</td>
+                    <td class="fw-bold">@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : L["Negotiable"].Value)</td>
                     <td>@listing.NumberOfBedrooms</td>
                     <td>@listing.NumberOfBathrooms</td>
+                    <td>
+                        @{
+                            Model.Ratings.TryGetValue(listing.Id, out var rating);
+                        }
+                        <span class="stars-filled">
+                            @for (var s = 1; s <= 5; s++)
+                            {
+                                if (s <= Math.Round(rating.Average))
+                                {
+                                    <span>&#9733;</span>
+                                }
+                                else
+                                {
+                                    <span class="stars-empty">&#9734;</span>
+                                }
+                            }
+                        </span>
+                        <small class="text-muted">(@rating.Count)</small>
+                    </td>
                     <td><span class="badge bg-success">@L["Status_Active"]</span></td>
                     <td>
                         @if (listing.SellerId == Model.CurrentUserId)
                         {
                             <a asp-page="Edit" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-primary">@L["Action_Edit"]</a>
-                            <a asp-page="Archive" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-warning">@L["Action_Archive"]</a>
+                            <a asp-page="Archive" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-secondary">@L["Action_Archive"]</a>
                             <a asp-page="Delete" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-danger">@L["Action_Delete"]</a>
                         }
                     </td>
@@ -54,4 +75,5 @@ else
             }
         </tbody>
     </table>
+    </div>
 }

@@ -1,7 +1,8 @@
 using System.Globalization;
-using BuyOrRent.Modules.Listings.API;
-using BuyOrRent.Modules.Listings.Infrastructure.Persistence;
+using Listings.Data;
+using Listings.Extensions;
 using BuyOrRent.Web;
+using BuyOrRent.Web.Settings;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+builder.Services.Configure<ThemeSettings>(builder.Configuration.GetSection(ThemeSettings.SectionName));
 
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));

@@ -1,7 +1,8 @@
-using BuyOrRent.Modules.Listings.Application.Abstractions;
-using BuyOrRent.Modules.Listings.Application.Dtos;
-using BuyOrRent.Modules.Listings.Application.Features.SearchListings;
-using BuyOrRent.Modules.Listings.Domain.Enums;
+using Listings.Listing.Dtos;
+using Listings.Listing.Enums;
+using Listings.Listing.Features.SearchListings;
+using Locations.Location.Abstractions;
+using Ratings.Rating.Features.GetListingRatingSummaries;
 using BuyOrRent.Web.Helpers;
 using LiteBus.Queries.Abstractions;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,7 @@ public class SearchModel(IQueryMediator queryMediator, ILocationRepository locat
     public PropertyType? SelectedPropertyType { get; set; }
 
     public IReadOnlyList<ListingDto> Results { get; set; } = [];
+    public Dictionary<Guid, (double Average, int Count)> Ratings { get; set; } = [];
     public List<SelectListItem> Regions { get; set; } = [];
     public List<SelectListItem> PropertyTypeOptions { get; set; } = [];
 
@@ -43,6 +45,13 @@ public class SearchModel(IQueryMediator queryMediator, ILocationRepository locat
         };
 
         Results = await queryMediator.QueryAsync(query, cancellationToken);
+
+        if (Results.Count > 0)
+        {
+            Ratings = await queryMediator.QueryAsync(
+                new GetListingRatingSummariesQuery { ListingIds = Results.Select(l => l.Id) },
+                cancellationToken);
+        }
     }
 
     private async Task LoadRegionsAsync(CancellationToken cancellationToken)

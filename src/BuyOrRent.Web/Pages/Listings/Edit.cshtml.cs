@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using BuyOrRent.Modules.Listings.Application.Abstractions;
-using BuyOrRent.Modules.Listings.Application.Features.EditListing;
-using BuyOrRent.Modules.Listings.Application.Features.GetListing;
-using BuyOrRent.Modules.Listings.Domain.Enums;
-using BuyOrRent.Modules.Listings.Domain.Exceptions;
+using Listings.Listing.Enums;
+using Listings.Listing.Exceptions;
+using Listings.Listing.Abstractions;
+using Listings.Listing.Features.EditListing;
+using Listings.Listing.Features.GetListing;
+using Locations.Location.Abstractions;
 using BuyOrRent.Web.Extensions;
 using BuyOrRent.Web.Helpers;
 using LiteBus.Commands.Abstractions;

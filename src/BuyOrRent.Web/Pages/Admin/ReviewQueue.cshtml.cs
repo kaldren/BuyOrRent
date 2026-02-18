@@ -1,5 +1,5 @@
-using BuyOrRent.Modules.Listings.Application.Dtos;
-using BuyOrRent.Modules.Listings.Application.Features.GetPendingListings;
+using Listings.Listing.Dtos;
+using Listings.Listing.Features.GetPendingListings;
 using LiteBus.Queries.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;

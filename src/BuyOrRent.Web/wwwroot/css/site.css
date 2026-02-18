@@ -1,5 +1,8 @@
+/* ===== Base ===== */
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,24 +11,334 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+main.main-content {
+  flex: 1;
+}
+
+/* ===== Focus rings ===== */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--primary) 35%, transparent);
+  border-color: var(--primary);
+}
+
+/* ===== Links ===== */
+a {
+  color: var(--primary-dark);
+  transition: color 0.15s;
+}
+a:hover {
+  color: var(--primary);
+}
+
+/* ===== Navbar ===== */
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.site-nav {
+  background: var(--nav-bg);
+  border-bottom: 2px solid var(--border);
+  box-shadow: 0 1px 8px rgba(0,0,0,.06);
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+
+.site-nav .nav-link {
+  color: var(--text) !important;
+  font-weight: 500;
+  padding: .55rem .9rem !important;
+  border-radius: .5rem;
+  transition: background .15s, color .15s;
+}
+.site-nav .nav-link:hover,
+.site-nav .nav-link:focus {
+  background: color-mix(in srgb, var(--primary-light) 40%, transparent);
+  color: var(--primary-dark) !important;
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border: none;
+  color: var(--text-on-primary);
+  font-weight: 600;
+  border-radius: .5rem;
+  padding: .5rem 1.25rem;
+  transition: transform .1s, box-shadow .15s;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  color: var(--text-on-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 35%, transparent);
+}
+
+.btn-outline-primary {
+  color: var(--primary-dark);
+  border-color: var(--primary);
+  border-radius: .5rem;
+  font-weight: 600;
+}
+.btn-outline-primary:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--text-on-primary);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  border: none;
+  color: var(--text-on-secondary);
+  font-weight: 600;
+  border-radius: .5rem;
+}
+.btn-secondary:hover {
+  background: var(--secondary-dark);
+  color: var(--text-on-secondary);
+}
+
+.btn-outline-secondary {
+  color: var(--text-secondary);
+  border-color: var(--border);
+  border-radius: .5rem;
+}
+.btn-outline-secondary:hover {
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--text-on-secondary);
+}
+
+/* ===== Cards ===== */
+.card {
+  border: none;
+  border-radius: .75rem;
+  background: var(--surface);
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  transition: transform .15s, box-shadow .15s;
+  overflow: hidden;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.1);
+}
+
+.card-img-top {
+  border-radius: 0;
+}
+
+.card .card-body {
+  padding: 1.25rem;
+}
+
+.card .card-title {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Search / filter cards should not lift on hover */
+.search-card:hover {
+  transform: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+
+/* ===== Hero Section ===== */
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-light), var(--accent));
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.hero-section h1 {
+  color: var(--text);
+  font-weight: 800;
+  font-size: 2.2rem;
+  margin-bottom: .5rem;
+}
+.hero-section p {
+  color: var(--text-secondary);
+  font-size: 1.15rem;
+}
+
+/* ===== Search Box ===== */
+.search-card {
+  border-radius: .75rem;
+  border: 2px solid var(--border);
+  background: var(--surface);
+}
+.search-card .card-body {
+  padding: 1.5rem;
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: .85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.form-select,
+.form-control {
+  border-radius: .5rem;
+  border: 1.5px solid var(--border);
+  transition: border-color .15s, box-shadow .15s;
+}
+.form-select:hover,
+.form-control:hover {
+  border-color: var(--primary);
+}
+
+/* ===== Tables ===== */
+.table {
+  border-radius: .75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.table thead th {
+  background: var(--primary);
+  color: var(--text-on-primary);
+  font-weight: 600;
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  border: none;
+  padding: .85rem 1rem;
+}
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: color-mix(in srgb, var(--primary-light) 15%, var(--surface));
+}
+.table td {
+  vertical-align: middle;
+  padding: .75rem 1rem;
+}
+
+/* ===== Badges ===== */
+.badge {
+  font-weight: 600;
+  border-radius: .4rem;
+  padding: .35em .65em;
+}
+.badge.bg-success { background-color: var(--success) !important; }
+.badge.bg-warning { background-color: var(--warning) !important; color: var(--text) !important; }
+.badge.bg-danger { background-color: var(--danger) !important; }
+.badge.bg-info { background-color: var(--info) !important; color: var(--text-on-primary) !important; }
+
+/* ===== Listing Cards Grid ===== */
+.listing-card .card-text.price {
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.listing-card .no-image-placeholder {
+  background: linear-gradient(135deg, var(--primary-light), var(--accent));
+  color: var(--text-secondary);
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .9rem;
+}
+
+.listing-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* ===== Alerts ===== */
+.alert-info {
+  background: color-mix(in srgb, var(--info) 15%, var(--surface));
+  border-color: color-mix(in srgb, var(--info) 30%, transparent);
+  color: var(--text);
+  border-radius: .75rem;
+}
+
+/* ===== Stars ===== */
+.stars-filled {
+  color: var(--secondary-dark);
+}
+.stars-empty {
+  color: var(--border);
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 1.5rem 0;
+  margin-top: 3rem;
+}
+.site-footer a {
+  color: var(--primary-light);
+}
+.site-footer a:hover {
+  color: var(--secondary);
+}
+
+/* ===== Section headings ===== */
+.section-heading {
+  font-weight: 700;
+  color: var(--text);
+  position: relative;
+  padding-bottom: .5rem;
+  margin-bottom: 1.25rem;
+}
+.section-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3rem;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 2px;
+}
+
+/* ===== Misc ===== */
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
 }
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.dropdown-menu {
+  border-radius: .5rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,.1);
+}
+.dropdown-item:hover {
+  background: color-mix(in srgb, var(--primary-light) 40%, transparent);
+}
+
+/* ===== Admin badge ===== */
+.admin-badge {
+  background: var(--danger);
+  color: #fff;
 }

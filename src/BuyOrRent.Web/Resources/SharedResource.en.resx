@@ -220,6 +220,13 @@
   <data name="Unit_Bathrooms" xml:space="preserve"><value>Bathrooms</value></data>
   <data name="Unit_SqM" xml:space="preserve"><value>sq.m.</value></data>
 
+  <!-- Rating -->
+  <data name="Rating_Title" xml:space="preserve"><value>Rating</value></data>
+  <data name="Rating_Reviews" xml:space="preserve"><value>reviews</value></data>
+  <data name="Rating_NoRatings" xml:space="preserve"><value>No ratings yet.</value></data>
+  <data name="Rating_RateThis" xml:space="preserve"><value>Rate this listing:</value></data>
+  <data name="Rating_YourRating" xml:space="preserve"><value>Your rating:</value></data>
+
   <!-- Culture Switcher -->
   <data name="Language" xml:space="preserve"><value>Language</value></data>
   <data name="Language_Bulgarian" xml:space="preserve"><value>Български</value></data>

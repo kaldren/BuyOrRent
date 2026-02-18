@@ -1,6 +1,7 @@
-using BuyOrRent.Modules.Listings.Application.Abstractions;
-using BuyOrRent.Modules.Listings.Application.Dtos;
-using BuyOrRent.Modules.Listings.Application.Features.GetRandomListings;
+using Listings.Listing.Dtos;
+using Locations.Location.Abstractions;
+using Ratings.Rating.Features.GetListingRatingSummaries;
+using Listings.Listing.Features.GetRandomListings;
 using BuyOrRent.Web.Helpers;
 using LiteBus.Queries.Abstractions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,6 +13,7 @@ namespace BuyOrRent.Web.Pages;
 public class IndexModel(IQueryMediator queryMediator, ILocationRepository locationRepository, IStringLocalizer<SharedResource> localizer) : PageModel
 {
     public IReadOnlyList<ListingDto> FeaturedListings { get; set; } = [];
+    public Dictionary<Guid, (double Average, int Count)> Ratings { get; set; } = [];
     public List<SelectListItem> Regions { get; set; } = [];
     public List<SelectListItem> PropertyTypeOptions { get; set; } = [];
 
@@ -19,6 +21,13 @@ public class IndexModel(IQueryMediator queryMediator, ILocationRepository locati
     {
         FeaturedListings = await queryMediator.QueryAsync(
             new GetRandomListingsQuery { Count = 5 }, cancellationToken);
+
+        if (FeaturedListings.Count > 0)
+        {
+            Ratings = await queryMediator.QueryAsync(
+                new GetListingRatingSummariesQuery { ListingIds = FeaturedListings.Select(l => l.Id) },
+                cancellationToken);
+        }
 
         var regions = await locationRepository.GetAllRegionsAsync(cancellationToken);
         Regions = regions.Select(r => new SelectListItem(r.Name, r.Id.ToString())).ToList();

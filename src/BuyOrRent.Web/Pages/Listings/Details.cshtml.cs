@@ -1,16 +1,22 @@
-using BuyOrRent.Modules.Listings.Application.Dtos;
-using BuyOrRent.Modules.Listings.Application.Features.GetListing;
-using BuyOrRent.Modules.Listings.Domain.Enums;
+using Listings.Listing.Dtos;
+using Listings.Listing.Enums;
+using Listings.Listing.Exceptions;
+using Listings.Listing.Features.GetListing;
+using Ratings.Rating.Features.GetListingRatingSummary;
+using Ratings.Rating.Features.RateListing;
+using Ratings.Rating.Dtos;
 using BuyOrRent.Web.Extensions;
+using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BuyOrRent.Web.Pages.Listings;
 
-public class DetailsModel(IQueryMediator queryMediator) : PageModel
+public class DetailsModel(IQueryMediator queryMediator, ICommandMediator commandMediator) : PageModel
 {
     public ListingDto Listing { get; set; } = default!;
+    public RatingSummaryDto RatingSummary { get; set; } = new(0, 0, null);
 
     public async Task<IActionResult> OnGetAsync(Guid id, CancellationToken cancellationToken)
     {
@@ -27,6 +33,39 @@ public class DetailsModel(IQueryMediator queryMediator) : PageModel
         }
 
         Listing = listing;
+
+        RatingSummary = await queryMediator.QueryAsync(new GetListingRatingSummaryQuery
+        {
+            ListingId = id,
+            CurrentUserId = User.Identity?.IsAuthenticated == true ? User.GetUserId() : null
+        }, cancellationToken);
+
         return Page();
+    }
+
+    public async Task<IActionResult> OnPostRateAsync(Guid id, int stars, CancellationToken cancellationToken)
+    {
+        if (User.Identity?.IsAuthenticated != true)
+            return Challenge();
+
+        try
+        {
+            await commandMediator.SendAsync(new RateListingCommand
+            {
+                ListingId = id,
+                UserId = User.GetUserId(),
+                Stars = stars
+            }, cancellationToken);
+        }
+        catch (ListingDomainException)
+        {
+            // Silently ignore domain errors (e.g. self-rating)
+        }
+        catch (ArgumentException)
+        {
+            // Silently ignore validation errors (e.g. invalid rating)
+        }
+
+        return RedirectToPage(new { id });
     }
 }

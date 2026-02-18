@@ -1,5 +1,5 @@
-using BuyOrRent.Modules.Listings.Application.Dtos;
-using BuyOrRent.Modules.Listings.Application.Features.GetMyListings;
+using Listings.Listing.Dtos;
+using Listings.Listing.Features.GetMyListings;
 using BuyOrRent.Web.Extensions;
 using LiteBus.Queries.Abstractions;
 using Microsoft.AspNetCore.Authorization;

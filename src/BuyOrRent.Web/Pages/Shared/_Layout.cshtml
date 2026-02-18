@@ -8,12 +8,42 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BuyOrRent.Web.styles.css" asp-append-version="true" />
+    @{
+        var t = ThemeOptions.Value;
+    }
+    <style>
+        :root {
+            --primary: @t.Primary;
+            --primary-dark: @t.PrimaryDark;
+            --primary-light: @t.PrimaryLight;
+            --secondary: @t.Secondary;
+            --secondary-dark: @t.SecondaryDark;
+            --accent: @t.Accent;
+            --bg: @t.Background;
+            --bg-light: @t.BackgroundLight;
+            --surface: @t.Surface;
+            --text: @t.TextPrimary;
+            --text-secondary: @t.TextSecondary;
+            --text-on-primary: @t.TextOnPrimary;
+            --text-on-secondary: @t.TextOnSecondary;
+            --border: @t.Border;
+            --success: @t.Success;
+            --warning: @t.Warning;
+            --danger: @t.Danger;
+            --info: @t.Info;
+            --nav-bg: @t.NavBackground;
+            --footer-bg: @t.FooterBackground;
+            --footer-text: @t.FooterText;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm site-nav">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">BuyOrRent</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">
+                    &#127968; BuyOrRent
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,21 +51,21 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">@L["Nav_Home"]</a>
+                            <a class="nav-link" asp-area="" asp-page="/Index">@L["Nav_Home"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Listings/Index">@L["Nav_Listings"]</a>
+                            <a class="nav-link" asp-area="" asp-page="/Listings/Index">@L["Nav_Listings"]</a>
                         </li>
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Listings/MyListings">@L["Nav_MyListings"]</a>
+                                <a class="nav-link" asp-area="" asp-page="/Listings/MyListings">@L["Nav_MyListings"]</a>
                             </li>
                         }
                         @if (User.IsAdmin())
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     @L["Nav_Admin"]
                                 </a>
                                 <ul class="dropdown-menu">
@@ -44,7 +74,7 @@
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">@L["Nav_Privacy"]</a>
+                            <a class="nav-link" asp-area="" asp-page="/Privacy">@L["Nav_Privacy"]</a>
                         </li>
                         <partial name="_CultureSwitcherPartial" />
                     </ul>
@@ -53,15 +83,16 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+    <div class="container py-4">
+        <main role="main" class="main-content">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - BuyOrRent - <a asp-area="" asp-page="/Privacy">@L["Nav_Privacy"]</a>
+    <footer class="site-footer">
+        <div class="container text-center">
+            &copy; 2026 - <strong>BuyOrRent</strong> &mdash; <a asp-area="" asp-page="/Privacy">@L["Nav_Privacy"]</a>
         </div>
     </footer>
 

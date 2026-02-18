@@ -1,13 +1,13 @@
 @page
-@using BuyOrRent.Modules.Listings.Domain.Enums
+@using global::Listings.Listing.Enums
 @model BuyOrRent.Web.Pages.Listings.SearchModel
 @{
     ViewData["Title"] = L["Search_Title"].Value;
 }
 
-<h1 class="mb-4">@L["Search_Title"]</h1>
+<h1 class="section-heading">@L["Search_Title"]</h1>
 
-<div class="card mb-4">
+<div class="card search-card mb-4">
     <div class="card-body">
         <form method="get">
             <div class="row g-3 align-items-end">
@@ -66,23 +66,42 @@ else
         {
             <div class="col-md-4 mb-4">
                 <a asp-page="Details" asp-route-id="@listing.Id" class="text-decoration-none text-reset">
-                    <div class="card h-100">
+                    <div class="card listing-card h-100">
                         @if (listing.ImageUrls.Any())
                         {
-                            <img src="@listing.ImageUrls[0]" class="card-img-top" alt="@listing.Title" style="height: 200px; object-fit: cover;" />
+                            <img src="@listing.ImageUrls[0]" class="card-img-top" alt="@listing.Title" />
                         }
                         else
                         {
-                            <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <div class="no-image-placeholder">
                                 <span>@L["NoImage"]</span>
                             </div>
                         }
                         <div class="card-body">
                             <h5 class="card-title">@listing.Title</h5>
-                            <p class="card-text text-primary fw-bold">@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : L["Negotiable"].Value)</p>
+                            <p class="card-text price">@(listing.Price.HasValue ? listing.Price.Value.ToString("C") : L["Negotiable"].Value)</p>
+                            @{
+                                Model.Ratings.TryGetValue(listing.Id, out var rating);
+                            }
+                            <p class="card-text">
+                                <span class="stars-filled">
+                                    @for (var s = 1; s <= 5; s++)
+                                    {
+                                        if (s <= Math.Round(rating.Average))
+                                        {
+                                            <span>&#9733;</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="stars-empty">&#9734;</span>
+                                        }
+                                    }
+                                </span>
+                                <small class="text-muted">(@rating.Count)</small>
+                            </p>
                             <p class="card-text text-muted">@listing.CityName, @listing.MunicipalityName</p>
                             <p class="card-text">
-                                <span class="badge bg-info text-dark">@Model.GetPropertyTypeDisplayName(listing.PropertyType)</span>
+                                <span class="badge bg-info">@Model.GetPropertyTypeDisplayName(listing.PropertyType)</span>
                             </p>
                             <p class="card-text">
                                 <small>@listing.NumberOfBedrooms @L["Unit_Bedrooms"] &middot; @listing.NumberOfBathrooms @L["Unit_Bathrooms"] &middot; @listing.SquareFootage @L["Unit_SqM"]</small>

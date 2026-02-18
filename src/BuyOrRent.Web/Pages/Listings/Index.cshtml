@@ -48,12 +48,15 @@ else
                         }
                     </td>
                     <td>
-                        <a asp-page="Edit" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-primary">Edit</a>
-                        @if (listing.Status == BuyOrRent.Modules.Listings.Domain.Enums.ListingStatus.Active)
+                        @if (listing.SellerId == Model.CurrentUserId)
                         {
-                            <a asp-page="Archive" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-warning">Archive</a>
+                            <a asp-page="Edit" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                            @if (listing.Status == BuyOrRent.Modules.Listings.Domain.Enums.ListingStatus.Active)
+                            {
+                                <a asp-page="Archive" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-warning">Archive</a>
+                            }
+                            <a asp-page="Delete" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-danger">Delete</a>
                         }
-                        <a asp-page="Delete" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-danger">Delete</a>
                     </td>
                 </tr>
             }

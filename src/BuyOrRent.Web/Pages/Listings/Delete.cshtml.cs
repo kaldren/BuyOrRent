@@ -1,13 +1,17 @@
 using BuyOrRent.Modules.Listings.Application.Dtos;
 using BuyOrRent.Modules.Listings.Application.Features.DeleteListing;
 using BuyOrRent.Modules.Listings.Application.Features.GetListing;
+using BuyOrRent.Modules.Listings.Domain.Exceptions;
+using BuyOrRent.Web.Extensions;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BuyOrRent.Web.Pages.Listings;
 
+[Authorize]
 public class DeleteModel(IQueryMediator queryMediator, ICommandMediator commandMediator) : PageModel
 {
     public ListingDto Listing { get; set; } = default!;
@@ -18,6 +22,9 @@ public class DeleteModel(IQueryMediator queryMediator, ICommandMediator commandM
         if (listing is null)
             return NotFound();
 
+        if (listing.SellerId != User.GetUserId())
+            return Forbid();
+
         Listing = listing;
         return Page();
     }
@@ -26,11 +33,19 @@ public class DeleteModel(IQueryMediator queryMediator, ICommandMediator commandM
     {
         try
         {
-            await commandMediator.SendAsync(new DeleteListingCommand { Id = id }, cancellationToken);
+            await commandMediator.SendAsync(new DeleteListingCommand
+            {
+                Id = id,
+                RequestedByUserId = User.GetUserId()
+            }, cancellationToken);
         }
         catch (KeyNotFoundException)
         {
             return NotFound();
+        }
+        catch (UnauthorizedListingAccessException)
+        {
+            return Forbid();
         }
 
         return RedirectToPage("Index");

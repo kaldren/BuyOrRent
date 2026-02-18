@@ -1,4 +1,5 @@
 using BuyOrRent.Modules.Listings.Application.Abstractions;
+using BuyOrRent.Modules.Listings.Domain.Exceptions;
 using LiteBus.Commands.Abstractions;
 
 namespace BuyOrRent.Modules.Listings.Application.Features.EditListing;
@@ -16,6 +17,7 @@ public class EditListingCommand : ICommand
     public int NumberOfBathrooms { get; init; }
     public double SquareFootage { get; init; }
     public List<string> ImageUrls { get; init; } = [];
+    public Guid RequestedByUserId { get; init; }
 
     public class Handler(IListingRepository repository) : ICommandHandler<EditListingCommand>
     {
@@ -23,6 +25,9 @@ public class EditListingCommand : ICommand
         {
             var listing = await repository.GetByIdAsync(command.Id, cancellationToken)
                 ?? throw new KeyNotFoundException($"Listing with ID {command.Id} was not found.");
+
+            if (listing.SellerId != command.RequestedByUserId)
+                throw new UnauthorizedListingAccessException(command.Id);
 
             listing.Title = command.Title;
             listing.Description = command.Description;

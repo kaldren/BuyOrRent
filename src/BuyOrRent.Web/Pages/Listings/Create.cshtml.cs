@@ -2,13 +2,16 @@ using System.ComponentModel.DataAnnotations;
 using BuyOrRent.Modules.Listings.Application.Abstractions;
 using BuyOrRent.Modules.Listings.Application.Features.CreateListing;
 using BuyOrRent.Modules.Listings.Domain.Exceptions;
+using BuyOrRent.Web.Extensions;
 using LiteBus.Commands.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BuyOrRent.Web.Pages.Listings;
 
+[Authorize]
 public class CreateModel(ICommandMediator commandMediator, IImageStorageService imageStorageService, ILocationRepository locationRepository) : PageModel
 {
     [BindProperty]
@@ -55,7 +58,7 @@ public class CreateModel(ICommandMediator commandMediator, IImageStorageService 
             NumberOfBedrooms = Input.NumberOfBedrooms,
             NumberOfBathrooms = Input.NumberOfBathrooms,
             SquareFootage = Input.SquareFootage,
-            SellerId = Guid.NewGuid(), // Placeholder until auth provides real user ID
+            SellerId = User.GetUserId(),
             ImageUrls = imageUrls
         };
 

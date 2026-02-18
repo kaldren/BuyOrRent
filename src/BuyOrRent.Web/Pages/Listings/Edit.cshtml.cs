@@ -3,14 +3,17 @@ using BuyOrRent.Modules.Listings.Application.Abstractions;
 using BuyOrRent.Modules.Listings.Application.Features.EditListing;
 using BuyOrRent.Modules.Listings.Application.Features.GetListing;
 using BuyOrRent.Modules.Listings.Domain.Exceptions;
+using BuyOrRent.Web.Extensions;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BuyOrRent.Web.Pages.Listings;
 
+[Authorize]
 public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMediator, IImageStorageService imageStorageService, ILocationRepository locationRepository) : PageModel
 {
     [BindProperty]
@@ -36,6 +39,9 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
         var listing = await queryMediator.QueryAsync(new GetListingQuery { Id = id }, cancellationToken);
         if (listing is null)
             return NotFound();
+
+        if (listing.SellerId != User.GetUserId())
+            return Forbid();
 
         // Resolve location hierarchy for pre-selection
         var city = await locationRepository.GetCityByIdAsync(listing.CityId, cancellationToken);
@@ -106,7 +112,8 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
             NumberOfBedrooms = Input.NumberOfBedrooms,
             NumberOfBathrooms = Input.NumberOfBathrooms,
             SquareFootage = Input.SquareFootage,
-            ImageUrls = imageUrls
+            ImageUrls = imageUrls,
+            RequestedByUserId = User.GetUserId()
         };
 
         try
@@ -116,6 +123,10 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
         catch (KeyNotFoundException)
         {
             return NotFound();
+        }
+        catch (UnauthorizedListingAccessException)
+        {
+            return Forbid();
         }
         catch (ListingDomainException ex)
         {

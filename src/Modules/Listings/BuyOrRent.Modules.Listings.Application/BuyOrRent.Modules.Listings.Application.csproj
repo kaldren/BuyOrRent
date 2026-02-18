@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-</Project>
+  <ItemGroup>
+    <PackageReference Include="LiteBus" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BuyOrRent.Modules.Listings.Domain\BuyOrRent.Modules.Listings.Domain.csproj" />
+  </ItemGroup>
+
+  </Project>

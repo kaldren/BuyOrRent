@@ -1,0 +1,34 @@
+using BuyOrRent.Modules.Listings.Application.Abstractions;
+using BuyOrRent.Modules.Listings.Application.Dtos;
+using LiteBus.Queries.Abstractions;
+
+namespace BuyOrRent.Modules.Listings.Application.Features.GetListings;
+
+public class GetListingsQuery : IQuery<IReadOnlyList<ListingDto>>
+{
+    public class Handler(IListingRepository repository) : IQueryHandler<GetListingsQuery, IReadOnlyList<ListingDto>>
+    {
+        public async Task<IReadOnlyList<ListingDto>> HandleAsync(GetListingsQuery query, CancellationToken cancellationToken = default)
+        {
+            var listings = await repository.GetAllAsync(cancellationToken);
+
+            return listings.Select(listing => new ListingDto(
+                listing.Id,
+                listing.Title,
+                listing.Description,
+                listing.Price,
+                listing.Address,
+                listing.City,
+                listing.State,
+                listing.ZipCode,
+                listing.NumberOfBedrooms,
+                listing.NumberOfBathrooms,
+                listing.SquareFootage,
+                listing.Status,
+                listing.SellerId,
+                listing.ImageUrls,
+                listing.CreatedAt,
+                listing.UpdatedAt)).ToList();
+        }
+    }
+}

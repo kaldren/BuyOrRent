@@ -4,7 +4,48 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-4">
+    <h1 class="display-4">Welcome to BuyOrRent</h1>
+    <p class="lead">Find your dream home today.</p>
 </div>
+
+@if (Model.FeaturedListings.Any())
+{
+    <h2 class="mb-3">Featured Listings</h2>
+    <div class="row">
+        @foreach (var listing in Model.FeaturedListings)
+        {
+            <div class="col-md-4 mb-4">
+                <a asp-page="/Listings/Details" asp-route-id="@listing.Id" class="text-decoration-none text-reset">
+                <div class="card h-100">
+                    @if (listing.ImageUrls.Any())
+                    {
+                        <img src="@listing.ImageUrls[0]" class="card-img-top" alt="@listing.Title" style="height: 200px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <span>No Image</span>
+                        </div>
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@listing.Title</h5>
+                        <p class="card-text text-primary fw-bold">@listing.Price.ToString("C")</p>
+                        <p class="card-text text-muted">@listing.City, @listing.State</p>
+                        <p class="card-text">
+                            <small>@listing.NumberOfBedrooms bd &middot; @listing.NumberOfBathrooms ba &middot; @listing.SquareFootage sqft</small>
+                        </p>
+                    </div>
+                </div>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="text-center mt-2">
+        <a asp-page="/Listings/Index" class="btn btn-outline-primary">View All Listings</a>
+    </div>
+}
+else
+{
+    <div class="alert alert-info text-center">No listings yet. Be the first to <a asp-page="/Listings/Create">create one</a>!</div>
+}

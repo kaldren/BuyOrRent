@@ -1,0 +1,62 @@
+@page
+@model BuyOrRent.Web.Pages.Listings.IndexModel
+@{
+    ViewData["Title"] = "Listings";
+}
+
+<h1>Listings</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New Listing</a>
+</p>
+
+@if (!Model.Listings.Any())
+{
+    <div class="alert alert-info">No listings found. Create one to get started.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>City</th>
+                <th>Price</th>
+                <th>Bedrooms</th>
+                <th>Bathrooms</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var listing in Model.Listings)
+            {
+                <tr>
+                    <td><a asp-page="Details" asp-route-id="@listing.Id">@listing.Title</a></td>
+                    <td>@listing.City, @listing.State</td>
+                    <td>@listing.Price.ToString("C")</td>
+                    <td>@listing.NumberOfBedrooms</td>
+                    <td>@listing.NumberOfBathrooms</td>
+                    <td>
+                        @if (listing.Status == BuyOrRent.Modules.Listings.Domain.Enums.ListingStatus.Active)
+                        {
+                            <span class="badge bg-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Archived</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                        @if (listing.Status == BuyOrRent.Modules.Listings.Domain.Enums.ListingStatus.Active)
+                        {
+                            <a asp-page="Archive" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-warning">Archive</a>
+                        }
+                        <a asp-page="Delete" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

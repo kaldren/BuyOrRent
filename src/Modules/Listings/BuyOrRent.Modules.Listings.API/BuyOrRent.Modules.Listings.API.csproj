@@ -6,4 +6,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteBus" Version="4.3.0" />
+    <PackageReference Include="LiteBus.Extensions.Microsoft.DependencyInjection" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BuyOrRent.Modules.Listings.Application\BuyOrRent.Modules.Listings.Application.csproj" />
+    <ProjectReference Include="..\..\BuyOrRent.Modules.Listings.Infrastructure\BuyOrRent.Modules.Listings.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

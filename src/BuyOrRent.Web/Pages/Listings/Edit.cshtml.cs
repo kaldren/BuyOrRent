@@ -20,7 +20,6 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
     public ListingInput Input { get; set; } = new();
 
     [BindProperty]
-    [Display(Name = "Add Images")]
     public List<IFormFile> Images { get; set; } = [];
 
     [BindProperty]
@@ -76,7 +75,7 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
     {
         if (!ModelState.IsValid)
         {
-            await LoadRegionsAsync(cancellationToken);
+            await ReloadPageDataAsync(cancellationToken);
             return Page();
         }
 
@@ -129,7 +128,7 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
         catch (ListingDomainException ex)
         {
             ModelState.AddModelError(string.Empty, ex.Message);
-            await LoadRegionsAsync(cancellationToken);
+            await ReloadPageDataAsync(cancellationToken);
             return Page();
         }
 
@@ -140,6 +139,25 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
     {
         var regions = await locationRepository.GetAllRegionsAsync(cancellationToken);
         Regions = regions.Select(r => new SelectListItem(r.Name, r.Id.ToString())).ToList();
+    }
+
+    private async Task ReloadPageDataAsync(CancellationToken cancellationToken)
+    {
+        await LoadRegionsAsync(cancellationToken);
+
+        var listing = await queryMediator.QueryAsync(new GetListingQuery { Id = Input.Id }, cancellationToken);
+        if (listing is not null)
+        {
+            CurrentImageUrls = listing.ImageUrls;
+
+            var city = await locationRepository.GetCityByIdAsync(listing.CityId, cancellationToken);
+            if (city is not null)
+            {
+                SelectedCityId = city.Id;
+                SelectedMunicipalityId = city.MunicipalityId;
+                SelectedRegionId = city.Municipality.RegionId;
+            }
+        }
     }
 
     public class ListingInput

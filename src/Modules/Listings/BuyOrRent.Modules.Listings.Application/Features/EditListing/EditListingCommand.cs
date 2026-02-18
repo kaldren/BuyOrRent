@@ -1,4 +1,5 @@
 using BuyOrRent.Modules.Listings.Application.Abstractions;
+using BuyOrRent.Modules.Listings.Domain.Enums;
 using BuyOrRent.Modules.Listings.Domain.Exceptions;
 using LiteBus.Commands.Abstractions;
 
@@ -28,6 +29,9 @@ public class EditListingCommand : ICommand
             if (listing.SellerId != command.RequestedByUserId)
                 throw new UnauthorizedListingAccessException(command.Id);
 
+            if (listing.Status == ListingStatus.Archived)
+                throw new ListingDomainException("Архивирани обяви не могат да бъдат редактирани.");
+
             listing.Title = command.Title;
             listing.Description = command.Description;
             listing.Price = command.Price;
@@ -37,6 +41,8 @@ public class EditListingCommand : ICommand
             listing.NumberOfBathrooms = command.NumberOfBathrooms;
             listing.SquareFootage = command.SquareFootage;
             listing.ImageUrls = command.ImageUrls;
+            listing.Status = Domain.Enums.ListingStatus.PendingReview;
+            listing.RejectionReason = null;
             listing.UpdatedAt = DateTime.UtcNow;
 
             listing.Validate();

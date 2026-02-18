@@ -52,7 +52,7 @@ else
                         }
                     </td>
                     <td>
-                        @if (listing.Status == ListingStatus.Active || listing.Status == ListingStatus.Rejected)
+                        @if (listing.Status == ListingStatus.Active || listing.Status == ListingStatus.Rejected || listing.Status == ListingStatus.PendingReview)
                         {
                             <a asp-page="Edit" asp-route-id="@listing.Id" class="btn btn-sm btn-outline-primary">Редактирай</a>
                         }

@@ -58,21 +58,37 @@
             </div>
 
             <div class="row">
-                <div class="col-md-5 mb-3">
-                    <label asp-for="Input.City" class="form-label"></label>
-                    <input asp-for="Input.City" class="form-control" />
-                    <span asp-validation-for="Input.City" class="text-danger"></span>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label asp-for="Input.State" class="form-label"></label>
-                    <input asp-for="Input.State" class="form-control" />
-                    <span asp-validation-for="Input.State" class="text-danger"></span>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Country</label>
+                    <select asp-items="Model.Countries" class="form-select" id="countrySelect" value="@Model.SelectedCountryId">
+                        <option value="">-- Select --</option>
+                    </select>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <label asp-for="Input.ZipCode" class="form-label"></label>
-                    <input asp-for="Input.ZipCode" class="form-control" />
-                    <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
+                    <label class="form-label">Region</label>
+                    <select class="form-select" id="regionSelect" data-selected-value="@Model.SelectedRegionId">
+                        <option value="">-- Select --</option>
+                    </select>
                 </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Municipality</label>
+                    <select class="form-select" id="municipalitySelect" data-selected-value="@Model.SelectedMunicipalityId">
+                        <option value="">-- Select --</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Input.CityId" class="form-label"></label>
+                    <select asp-for="Input.CityId" class="form-select" id="citySelect" data-selected-value="@Model.SelectedCityId">
+                        <option value="">-- Select --</option>
+                    </select>
+                    <span asp-validation-for="Input.CityId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.ZipCode" class="form-label"></label>
+                <input asp-for="Input.ZipCode" class="form-control" />
+                <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
             </div>
 
             <div class="row">
@@ -103,4 +119,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <partial name="_LocationDropdownScriptsPartial" />
 }

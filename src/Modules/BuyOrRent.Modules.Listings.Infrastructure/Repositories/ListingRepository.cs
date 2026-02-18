@@ -9,12 +9,20 @@ public class ListingRepository(ListingsDbContext dbContext) : IListingRepository
 {
     public async Task<Listing?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await dbContext.Listings.FindAsync([id], cancellationToken);
+        return await dbContext.Listings
+            .Include(l => l.City)
+                .ThenInclude(c => c.Municipality)
+                    .ThenInclude(m => m.Region)
+            .FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
     }
 
     public async Task<IReadOnlyList<Listing>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await dbContext.Listings.ToListAsync(cancellationToken);
+        return await dbContext.Listings
+            .Include(l => l.City)
+                .ThenInclude(c => c.Municipality)
+                    .ThenInclude(m => m.Region)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task AddAsync(Listing listing, CancellationToken cancellationToken = default)

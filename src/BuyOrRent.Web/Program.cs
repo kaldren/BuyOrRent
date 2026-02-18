@@ -20,7 +20,7 @@ builder.Services.AddListingsModule(builder.Configuration);
 
 var app = builder.Build();
 
-// Ensure database is created
+// Ensure database is created and seeded
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ListingsDbContext>();
@@ -29,6 +29,9 @@ using (var scope = app.Services.CreateScope())
         db.Database.EnsureDeleted();
     }
     db.Database.EnsureCreated();
+
+    var seeder = scope.ServiceProvider.GetRequiredService<LocationSeeder>();
+    await seeder.SeedAsync();
 }
 
 // Configure the HTTP request pipeline.
@@ -49,5 +52,6 @@ app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 app.MapControllers();
+app.MapListingsModule();
 
 app.Run();

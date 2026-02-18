@@ -10,8 +10,7 @@ public class EditListingCommand : ICommand
     public required string Description { get; init; }
     public decimal Price { get; init; }
     public required string Address { get; init; }
-    public required string City { get; init; }
-    public required string State { get; init; }
+    public Guid CityId { get; init; }
     public required string ZipCode { get; init; }
     public int NumberOfBedrooms { get; init; }
     public int NumberOfBathrooms { get; init; }
@@ -29,8 +28,7 @@ public class EditListingCommand : ICommand
             listing.Description = command.Description;
             listing.Price = command.Price;
             listing.Address = command.Address;
-            listing.City = command.City;
-            listing.State = command.State;
+            listing.CityId = command.CityId;
             listing.ZipCode = command.ZipCode;
             listing.NumberOfBedrooms = command.NumberOfBedrooms;
             listing.NumberOfBathrooms = command.NumberOfBathrooms;

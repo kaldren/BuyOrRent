@@ -41,21 +41,37 @@
             </div>
 
             <div class="row">
-                <div class="col-md-5 mb-3">
-                    <label asp-for="Input.City" class="form-label"></label>
-                    <input asp-for="Input.City" class="form-control" />
-                    <span asp-validation-for="Input.City" class="text-danger"></span>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label asp-for="Input.State" class="form-label"></label>
-                    <input asp-for="Input.State" class="form-control" />
-                    <span asp-validation-for="Input.State" class="text-danger"></span>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Input.CountryId" class="form-label"></label>
+                    <select asp-for="Input.CountryId" asp-items="Model.Countries" class="form-select" id="countrySelect">
+                        <option value="">-- Select --</option>
+                    </select>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <label asp-for="Input.ZipCode" class="form-label"></label>
-                    <input asp-for="Input.ZipCode" class="form-control" />
-                    <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
+                    <label asp-for="Input.RegionId" class="form-label"></label>
+                    <select asp-for="Input.RegionId" class="form-select" id="regionSelect" disabled>
+                        <option value="">-- Select --</option>
+                    </select>
                 </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Input.MunicipalityId" class="form-label"></label>
+                    <select asp-for="Input.MunicipalityId" class="form-select" id="municipalitySelect" disabled>
+                        <option value="">-- Select --</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Input.CityId" class="form-label"></label>
+                    <select asp-for="Input.CityId" class="form-select" id="citySelect" disabled>
+                        <option value="">-- Select --</option>
+                    </select>
+                    <span asp-validation-for="Input.CityId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.ZipCode" class="form-label"></label>
+                <input asp-for="Input.ZipCode" class="form-control" />
+                <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
             </div>
 
             <div class="row">
@@ -86,4 +102,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <partial name="_LocationDropdownScriptsPartial" />
 }

@@ -11,8 +11,7 @@ public class CreateListingCommand : ICommand<Guid>
     public required string Description { get; init; }
     public decimal Price { get; init; }
     public required string Address { get; init; }
-    public required string City { get; init; }
-    public required string State { get; init; }
+    public Guid CityId { get; init; }
     public required string ZipCode { get; init; }
     public int NumberOfBedrooms { get; init; }
     public int NumberOfBathrooms { get; init; }
@@ -31,8 +30,7 @@ public class CreateListingCommand : ICommand<Guid>
                 Description = command.Description,
                 Price = command.Price,
                 Address = command.Address,
-                City = command.City,
-                State = command.State,
+                CityId = command.CityId,
                 ZipCode = command.ZipCode,
                 NumberOfBedrooms = command.NumberOfBedrooms,
                 NumberOfBathrooms = command.NumberOfBathrooms,

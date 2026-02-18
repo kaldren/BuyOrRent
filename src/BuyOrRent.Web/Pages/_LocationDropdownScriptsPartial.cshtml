@@ -1,0 +1,79 @@
+<script>
+    (function () {
+        const countrySelect = document.getElementById('countrySelect');
+        const regionSelect = document.getElementById('regionSelect');
+        const municipalitySelect = document.getElementById('municipalitySelect');
+        const citySelect = document.getElementById('citySelect');
+
+        function resetSelect(select, placeholder) {
+            select.innerHTML = `<option value="">${placeholder}</option>`;
+            select.disabled = true;
+        }
+
+        async function loadOptions(url, select, placeholder) {
+            resetSelect(select, placeholder);
+            const response = await fetch(url);
+            if (!response.ok) return;
+            const items = await response.json();
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = item.name;
+                select.appendChild(option);
+            });
+            select.disabled = false;
+        }
+
+        if (countrySelect) {
+            countrySelect.addEventListener('change', function () {
+                resetSelect(regionSelect, '-- Select --');
+                resetSelect(municipalitySelect, '-- Select --');
+                resetSelect(citySelect, '-- Select --');
+                if (this.value) {
+                    loadOptions(`/api/locations/regions/${this.value}`, regionSelect, '-- Select --');
+                }
+            });
+        }
+
+        if (regionSelect) {
+            regionSelect.addEventListener('change', function () {
+                resetSelect(municipalitySelect, '-- Select --');
+                resetSelect(citySelect, '-- Select --');
+                if (this.value) {
+                    loadOptions(`/api/locations/municipalities/${this.value}`, municipalitySelect, '-- Select --');
+                }
+            });
+        }
+
+        if (municipalitySelect) {
+            municipalitySelect.addEventListener('change', function () {
+                resetSelect(citySelect, '-- Select --');
+                if (this.value) {
+                    loadOptions(`/api/locations/cities/${this.value}`, citySelect, '-- Select --');
+                }
+            });
+        }
+
+        // Auto-trigger cascading load if values are pre-selected (edit scenario)
+        if (countrySelect && countrySelect.value) {
+            loadOptions(`/api/locations/regions/${countrySelect.value}`, regionSelect, '-- Select --').then(() => {
+                const regionVal = regionSelect.dataset.selectedValue;
+                if (regionVal) {
+                    regionSelect.value = regionVal;
+                    loadOptions(`/api/locations/municipalities/${regionVal}`, municipalitySelect, '-- Select --').then(() => {
+                        const munVal = municipalitySelect.dataset.selectedValue;
+                        if (munVal) {
+                            municipalitySelect.value = munVal;
+                            loadOptions(`/api/locations/cities/${munVal}`, citySelect, '-- Select --').then(() => {
+                                const cityVal = citySelect.dataset.selectedValue;
+                                if (cityVal) {
+                                    citySelect.value = cityVal;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    })();
+</script>

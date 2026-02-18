@@ -9,8 +9,8 @@ public class Listing
     public required string Description { get; set; }
     public decimal Price { get; set; }
     public required string Address { get; set; }
-    public required string City { get; set; }
-    public required string State { get; set; }
+    public Guid CityId { get; set; }
+    public City City { get; set; } = null!;
     public required string ZipCode { get; set; }
     public int NumberOfBedrooms { get; set; }
     public int NumberOfBathrooms { get; set; }

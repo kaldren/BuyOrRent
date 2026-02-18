@@ -20,7 +20,7 @@ else
         <thead>
             <tr>
                 <th>Title</th>
-                <th>City</th>
+                <th>Location</th>
                 <th>Price</th>
                 <th>Bedrooms</th>
                 <th>Bathrooms</th>
@@ -33,7 +33,7 @@ else
             {
                 <tr>
                     <td><a asp-page="Details" asp-route-id="@listing.Id">@listing.Title</a></td>
-                    <td>@listing.City, @listing.State</td>
+                    <td>@listing.CityName, @listing.MunicipalityName</td>
                     <td>@listing.Price.ToString("C")</td>
                     <td>@listing.NumberOfBedrooms</td>
                     <td>@listing.NumberOfBathrooms</td>

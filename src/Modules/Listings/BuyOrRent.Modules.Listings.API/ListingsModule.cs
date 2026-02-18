@@ -31,6 +31,7 @@ public static class ListingsModule
     public static IEndpointRouteBuilder MapListingsModule(this IEndpointRouteBuilder app)
     {
         app.MapListingsApi();
+        app.MapLocationsApi();
         return app;
     }
 }

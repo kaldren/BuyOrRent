@@ -17,6 +17,8 @@ public static class ListingsInfrastructureServiceCollectionExtensions
             options.UseSqlServer(configuration.GetConnectionString("ListingsDb")));
 
         services.AddScoped<IListingRepository, ListingRepository>();
+        services.AddScoped<ILocationRepository, LocationRepository>();
+        services.AddScoped<LocationSeeder>();
 
         var connectionString = configuration["AzureStorage:ConnectionString"];
         services.AddSingleton(_ => new BlobServiceClient(connectionString));

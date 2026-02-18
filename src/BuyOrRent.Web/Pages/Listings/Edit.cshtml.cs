@@ -6,10 +6,11 @@ using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BuyOrRent.Web.Pages.Listings;
 
-public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMediator, IImageStorageService imageStorageService) : PageModel
+public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMediator, IImageStorageService imageStorageService, ILocationRepository locationRepository) : PageModel
 {
     [BindProperty]
     public ListingInput Input { get; set; } = new();
@@ -22,12 +23,22 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
     public List<string> RemoveImageUrls { get; set; } = [];
 
     public IReadOnlyList<string> CurrentImageUrls { get; set; } = [];
+    public List<SelectListItem> Countries { get; set; } = [];
+
+    // Pre-selected values for cascading JS
+    public Guid? SelectedCountryId { get; set; }
+    public Guid? SelectedRegionId { get; set; }
+    public Guid? SelectedMunicipalityId { get; set; }
+    public Guid? SelectedCityId { get; set; }
 
     public async Task<IActionResult> OnGetAsync(Guid id, CancellationToken cancellationToken)
     {
         var listing = await queryMediator.QueryAsync(new GetListingQuery { Id = id }, cancellationToken);
         if (listing is null)
             return NotFound();
+
+        // Resolve location hierarchy for pre-selection
+        var city = await locationRepository.GetCityByIdAsync(listing.CityId, cancellationToken);
 
         Input = new ListingInput
         {
@@ -36,8 +47,7 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
             Description = listing.Description,
             Price = listing.Price,
             Address = listing.Address,
-            City = listing.City,
-            State = listing.State,
+            CityId = listing.CityId,
             ZipCode = listing.ZipCode,
             NumberOfBedrooms = listing.NumberOfBedrooms,
             NumberOfBathrooms = listing.NumberOfBathrooms,
@@ -45,19 +55,31 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
         };
         CurrentImageUrls = listing.ImageUrls;
 
+        if (city is not null)
+        {
+            SelectedCityId = city.Id;
+            SelectedMunicipalityId = city.MunicipalityId;
+            SelectedRegionId = city.Municipality.RegionId;
+            SelectedCountryId = city.Municipality.Region.CountryId;
+        }
+
+        await LoadCountriesAsync(cancellationToken);
+
         return Page();
     }
 
     public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
+        {
+            await LoadCountriesAsync(cancellationToken);
             return Page();
+        }
 
         var existing = await queryMediator.QueryAsync(new GetListingQuery { Id = Input.Id }, cancellationToken);
         if (existing is null)
             return NotFound();
 
-        // Start with existing images, remove any checked for removal
         var imageUrls = existing.ImageUrls.ToList();
         foreach (var urlToRemove in RemoveImageUrls)
         {
@@ -65,7 +87,6 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
             imageUrls.Remove(urlToRemove);
         }
 
-        // Upload new images
         foreach (var image in Images.Where(f => f.Length > 0))
         {
             using var stream = image.OpenReadStream();
@@ -81,8 +102,7 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
             Description = Input.Description,
             Price = Input.Price,
             Address = Input.Address,
-            City = Input.City,
-            State = Input.State,
+            CityId = Input.CityId,
             ZipCode = Input.ZipCode,
             NumberOfBedrooms = Input.NumberOfBedrooms,
             NumberOfBathrooms = Input.NumberOfBathrooms,
@@ -102,6 +122,12 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
         return RedirectToPage("Index");
     }
 
+    private async Task LoadCountriesAsync(CancellationToken cancellationToken)
+    {
+        var countries = await locationRepository.GetCountriesAsync(cancellationToken);
+        Countries = countries.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
+    }
+
     public class ListingInput
     {
         [Required]
@@ -119,11 +145,8 @@ public class EditModel(IQueryMediator queryMediator, ICommandMediator commandMed
         [Required, StringLength(300)]
         public string Address { get; set; } = string.Empty;
 
-        [Required, StringLength(100)]
-        public string City { get; set; } = string.Empty;
-
-        [Required, StringLength(100)]
-        public string State { get; set; } = string.Empty;
+        [Required, Display(Name = "City")]
+        public Guid CityId { get; set; }
 
         [Required, StringLength(20), Display(Name = "Zip Code")]
         public string ZipCode { get; set; } = string.Empty;

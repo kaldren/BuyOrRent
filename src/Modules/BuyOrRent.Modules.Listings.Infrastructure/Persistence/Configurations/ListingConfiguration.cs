@@ -25,13 +25,10 @@ public class ListingConfiguration : IEntityTypeConfiguration<Listing>
             .IsRequired()
             .HasMaxLength(300);
 
-        builder.Property(l => l.City)
-            .IsRequired()
-            .HasMaxLength(100);
-
-        builder.Property(l => l.State)
-            .IsRequired()
-            .HasMaxLength(100);
+        builder.HasOne(l => l.City)
+            .WithMany()
+            .HasForeignKey(l => l.CityId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.Property(l => l.ZipCode)
             .IsRequired()

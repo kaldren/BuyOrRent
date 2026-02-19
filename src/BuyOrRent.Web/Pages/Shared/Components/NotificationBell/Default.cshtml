@@ -1,0 +1,64 @@
+@model BuyOrRent.Web.ViewComponents.NotificationBellViewModel
+
+<li class="nav-item dropdown" id="notificationBell">
+    <a class="nav-link dropdown-toggle position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+        &#128276;
+        @if (Model.UnreadCount > 0)
+        {
+            <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle" id="notificationBadge">
+                @(Model.UnreadCount > 99 ? "99+" : Model.UnreadCount)
+            </span>
+        }
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" style="min-width: 300px; max-height: 350px; overflow-y: auto;">
+        <li class="dropdown-header d-flex justify-content-between align-items-center">
+            <span>Notifications</span>
+            @if (Model.UnreadCount > 0)
+            {
+                <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none" id="markAllReadBtn">Clear all</button>
+            }
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        @if (Model.Notifications.Any())
+        {
+            @foreach (var n in Model.Notifications)
+            {
+                <li>
+                    <a class="dropdown-item small py-2" href="/Listings/Details/@n.ListingId">
+                        @n.Message
+                        <br />
+                        <span class="text-muted" style="font-size:.75rem">@n.CreatedAt.ToString("MMM d, yyyy HH:mm")</span>
+                    </a>
+                </li>
+            }
+        }
+        else
+        {
+            <li><span class="dropdown-item-text text-muted small">No new notifications</span></li>
+        }
+    </ul>
+</li>
+
+<script>
+    (function () {
+        var btn = document.getElementById("markAllReadBtn");
+        if (btn) {
+            btn.addEventListener("click", function () {
+                fetch("/api/notifications/mark-read", { method: "POST" })
+                    .then(function () {
+                        var badge = document.getElementById("notificationBadge");
+                        if (badge) badge.remove();
+                        btn.classList.add("d-none");
+                        var dropdown = btn.closest("ul");
+                        var items = dropdown.querySelectorAll("li");
+                        for (var i = items.length - 1; i >= 2; i--) {
+                            items[i].remove();
+                        }
+                        var li = document.createElement("li");
+                        li.innerHTML = '<span class="dropdown-item-text text-muted small">No new notifications</span>';
+                        dropdown.appendChild(li);
+                    });
+            });
+        }
+    })();
+</script>

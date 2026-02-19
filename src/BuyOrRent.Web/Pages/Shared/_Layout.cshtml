@@ -61,6 +61,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-page="/Listings/MyListings">@L["Nav_MyListings"]</a>
                             </li>
+                            @await Component.InvokeAsync("NotificationBell")
                         }
                         @if (User.IsAdmin())
                         {

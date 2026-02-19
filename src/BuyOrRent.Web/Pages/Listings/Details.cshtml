@@ -166,6 +166,87 @@
                 <dd class="col-sm-9">@Model.Listing.UpdatedAt.Value.ToString("MMMM d, yyyy")</dd>
             }
         </dl>
+
+        <hr />
+
+        <!-- Comments Section -->
+        <div class="mb-4">
+            <h5 class="section-heading">Comments</h5>
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <form method="post" asp-page-handler="Comment" asp-route-id="@Model.Listing.Id" class="mb-4">
+                    <div class="mb-2">
+                        <textarea asp-for="NewComment" class="form-control" rows="3" maxlength="2000" placeholder="Leave a comment..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+                </form>
+            }
+
+            @if (Model.Comments.Items.Any())
+            {
+                @foreach (var comment in Model.Comments.Items)
+                {
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <strong>@comment.UserDisplayName</strong>
+                                <small class="text-muted">@comment.CreatedAt.ToString("MMM d, yyyy HH:mm")</small>
+                            </div>
+                            <p class="mt-2 mb-1">@comment.Content</p>
+
+                            @if (comment.OwnerReply is not null)
+                            {
+                                <div class="ms-4 mt-2 p-2 border-start border-3" style="border-color: var(--primary-dark) !important; background-color: rgba(0,0,0,0.02);">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>@comment.OwnerReplyDisplayName <span class="badge bg-info text-dark">Owner</span></strong>
+                                        <small class="text-muted">@comment.OwnerReplyAt?.ToString("MMM d, yyyy HH:mm")</small>
+                                    </div>
+                                    <p class="mt-1 mb-0">@comment.OwnerReply</p>
+                                </div>
+                            }
+                            else if (User.Identity?.IsAuthenticated == true && User.GetUserId() == Model.Listing.SellerId)
+                            {
+                                <div class="ms-4 mt-2">
+                                    <form method="post" asp-page-handler="Reply" asp-route-id="@Model.Listing.Id">
+                                        <input type="hidden" asp-for="ReplyCommentId" value="@comment.Id" />
+                                        <div class="mb-2">
+                                            <textarea asp-for="ReplyContent" class="form-control form-control-sm" rows="2" maxlength="2000" placeholder="Reply to this comment..."></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-outline-primary btn-sm">Reply</button>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <!-- Pagination -->
+                @if (Model.Comments.TotalPages > 1)
+                {
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item @(Model.Comments.HasPreviousPage ? "" : "disabled")">
+                                <a class="page-link" asp-page="Details" asp-route-id="@Model.Listing.Id" asp-route-commentPage="@(Model.CommentPage - 1)">Previous</a>
+                            </li>
+                            @for (var p = 1; p <= Model.Comments.TotalPages; p++)
+                            {
+                                <li class="page-item @(p == Model.CommentPage ? "active" : "")">
+                                    <a class="page-link" asp-page="Details" asp-route-id="@Model.Listing.Id" asp-route-commentPage="@p">@p</a>
+                                </li>
+                            }
+                            <li class="page-item @(Model.Comments.HasNextPage ? "" : "disabled")">
+                                <a class="page-link" asp-page="Details" asp-route-id="@Model.Listing.Id" asp-route-commentPage="@(Model.CommentPage + 1)">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                }
+            }
+            else
+            {
+                <p class="text-muted">No comments yet. Be the first to comment!</p>
+            }
+        </div>
     </div>
 </div>
 

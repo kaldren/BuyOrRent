@@ -6,7 +6,10 @@ using Listings.Storage;
 using Locations.Location.Abstractions;
 using Ratings;
 using Ratings.Rating.Abstractions;
+using Comments;
+using Comments.Comment.Abstractions;
 using LiteBus.Commands;
+using LiteBus.Events;
 using LiteBus.Extensions.Microsoft.DependencyInjection;
 using LiteBus.Queries;
 using Microsoft.AspNetCore.Builder;
@@ -27,7 +30,10 @@ public static class ListingsExtensions
         services.AddScoped<IListingRepository, ListingRepository>();
         services.AddScoped<IRatingRepository, RatingRepository>();
         services.AddScoped<ILocationRepository, LocationRepository>();
-        services.AddScoped<IListingExistenceChecker, ListingExistenceChecker>();
+        services.AddScoped<Ratings.Rating.Abstractions.IListingExistenceChecker, ListingExistenceChecker>();
+        services.AddScoped<Comments.Comment.Abstractions.IListingExistenceChecker, ListingExistenceChecker>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
         services.AddScoped<LocationSeeder>();
 
         var connectionString = configuration["AzureStorage:ConnectionString"];
@@ -36,6 +42,7 @@ public static class ListingsExtensions
 
         var listingsAssembly = typeof(ListingsRoot).Assembly;
         var ratingsAssembly = typeof(RatingsRoot).Assembly;
+        var commentsAssembly = typeof(CommentsRoot).Assembly;
 
         services.AddLiteBus(config =>
         {
@@ -43,11 +50,17 @@ public static class ListingsExtensions
             {
                 builder.RegisterFromAssembly(listingsAssembly);
                 builder.RegisterFromAssembly(ratingsAssembly);
+                builder.RegisterFromAssembly(commentsAssembly);
             });
             config.AddQueryModule(builder =>
             {
                 builder.RegisterFromAssembly(listingsAssembly);
                 builder.RegisterFromAssembly(ratingsAssembly);
+                builder.RegisterFromAssembly(commentsAssembly);
+            });
+            config.AddEventModule(builder =>
+            {
+                builder.RegisterFromAssembly(commentsAssembly);
             });
         });
 

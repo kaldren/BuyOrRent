@@ -2,7 +2,9 @@ using System.Globalization;
 using Listings.Data;
 using Listings.Extensions;
 using BuyOrRent.Web;
+using BuyOrRent.Web.Extensions;
 using BuyOrRent.Web.Settings;
+using Comments.Comment.Abstractions;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -80,6 +82,15 @@ app.MapRazorPages()
    .WithStaticAssets();
 app.MapControllers();
 app.MapListingsModule();
+
+app.MapPost("/api/notifications/mark-read", async (INotificationRepository repo, HttpContext ctx) =>
+{
+    var userId = ctx.User.GetUserId();
+    if (userId == Guid.Empty)
+        return Results.Unauthorized();
+    await repo.MarkAllReadAsync(userId);
+    return Results.Ok();
+}).RequireAuthorization();
 
 app.MapPost("/culture", ([FromForm] string culture, [FromForm] string returnUrl, HttpContext context) =>
 {

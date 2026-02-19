@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Comments\src\Comments.csproj" />
     <ProjectReference Include="..\..\Locations\src\Locations.csproj" />
     <ProjectReference Include="..\..\Ratings\src\Ratings.csproj" />
   </ItemGroup>

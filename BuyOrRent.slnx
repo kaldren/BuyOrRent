@@ -10,6 +10,7 @@
     <Project Path="src/BuyOrRent.Web/BuyOrRent.Web.csproj" Id="a1762f6b-9194-4c7e-b0a4-98528e7e5c48" />
   </Folder>
   <Folder Name="/src/Modules/">
+    <Project Path="src/Modules/Comments/src/Comments.csproj" />
     <Project Path="src/Modules/Listings/src/Listings.csproj" Id="d1a2b3c4-e5f6-7890-abcd-ef1234567890" />
     <Project Path="src/Modules/Locations/src/Locations.csproj" />
     <Project Path="src/Modules/Ratings/src/Ratings.csproj" />
